@@ -1,50 +1,17 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { loadEvents } from './ducks';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  state = {
-    data: {}
-  }
-
-  async getData() {
-    const data = await import('./events.json');
-    // debugger;
-    // const eventTypes = data.events.reduce((set, event) => set.add(event.event_type), new Set());
-    // data.eventTypes = Array.from(eventTypes).map((eventType, index) => ({
-    //   id: index,
-    //   type: eventType
-    // }));
-    // data.events = data.events.map(event => ({
-    //   toponyms: event.toponyms,
-    //   persons: event.persons,
-    //   name: event.name,
-    //   id: event.event_id,
-    //   parentEventId: event.parent_event_id,
-    //   startDate: event.start_date,
-    //   endDate: event.end_date,
-    //   type: data.eventTypes.find(p => p.type === event.event_type).id,
-    // }));
-    // data.toponyms = data.toponyms.map(toponym => ({
-    //   id: toponym.toponym_id,
-    //   name: toponym.toponym_name
-    // }))
-    // data.persons = data.persons.map(person => ({
-    //   id: person.person_id,
-    //   name: person.person_name,
-    //   patron: person.patron,
-    //   surname: person.surname
-    // }))
-    return data;
-  }
-
-  async componentDidMount() {
-    const data = await this.getData();
-    this.setState({ data });
+  componentDidMount() {
+    this.props.loadEvents();
   }
 
   render() {
-    const { data: { eventTypes, events, persons, toponyms } } = this.state;
+    const { events: { eventTypes, events, persons, toponyms } } = this.props;
 
     return (
       <div className="App">
@@ -89,4 +56,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    events: state.eventsData
+  }), dispatch => bindActionCreators({ loadEvents }, dispatch))(App);
