@@ -2,7 +2,12 @@ import { createAction, handleActions } from 'redux-actions';
 
 const defaultState = {
     requestWorking: false,
-    eventsData: {},
+    eventsData: {
+        events: [],
+        eventTypes: [],
+        persons: [],
+        toponyms: []
+    },
     errorOccured: false
 }
 
@@ -13,8 +18,8 @@ const loadEventsFailure = createAction('loadEventsFailure');
 export const loadEvents = () => async dispatch => {
     dispatch(loadEventsRequest());
     try {
-        const events = await import('./events.json');
-        dispatch(loadEventsSuccess(events));
+        const eventsData = await import('./events.json');
+        dispatch(loadEventsSuccess(eventsData));
     }
     catch (error) {
         dispatch(loadEventsFailure(error));
