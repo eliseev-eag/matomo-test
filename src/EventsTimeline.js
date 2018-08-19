@@ -16,10 +16,6 @@ const options = {
     snap: null,
     orientation: { axis: 'both' },
     zoomMin: 1000 * 60 * 60 * 24 * 5,
-    // max: new Date(),
-    // min: new Date(100, 0, 0),
-    // start: new Date(),
-    // end: new Date(100, 0, 0),
 };
 
 class EventsTimeline extends PureComponent {
@@ -69,10 +65,12 @@ class EventsTimeline extends PureComponent {
     }
 }
 
-export default connect(
+const connectedTimeline = connect(
     state => ({
         events: state.eventsData.events,
         eventTypes: state.eventsData.eventTypes
     }),
     dispatch => ({ actions: bindActionCreators({ changeTimelineRange }, dispatch) })
 )(EventsTimeline);
+
+export { connectedTimeline as Timeline };
