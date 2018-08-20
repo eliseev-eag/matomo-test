@@ -4,13 +4,14 @@ import { createSelector } from 'reselect';
 import { Table } from 'antd';
 
 const dateFormatter = date => date.toLocaleString();
-const typeFormatter = type => type.type
-
+const typeFormatter = type => type.type;
 const personsFormatter = persons => persons
     .map(person => `${person.surname} ${person.name} ${person.patron}`)
-    .join()
+    .join();
+const toponymsFormatter = toponyms => toponyms.map(toponym => toponym.name).join();
 
-const toponymsFormatter = toponyms => toponyms.map(toponym => toponym.name).join()
+const startDateSorter = (a, b) => a.startDate - b.startDate;
+const endDateSorter = (a, b) => a.endDate - b.endDate
 
 class EditorTable extends PureComponent {
     onRow = record => ({
@@ -19,7 +20,7 @@ class EditorTable extends PureComponent {
     });
 
     render() {
-        const { events } = this.props;
+        const { events, eventTypes } = this.props;
 
         return (
             <Table
@@ -31,16 +32,23 @@ class EditorTable extends PureComponent {
                     title="Start date"
                     dataIndex="startDate"
                     width="7.5%"
+                    sorter={startDateSorter}
                     render={dateFormatter} />
                 <Table.Column
                     title="End date"
                     dataIndex="endDate"
                     width="7.5%"
+                    sorter={endDateSorter}
                     render={dateFormatter} />
                 <Table.Column
                     title="Type"
                     dataIndex="type"
                     width="15%"
+                    filters={eventTypes.map(eventType => ({
+                        value: eventType.id,
+                        text: eventType.type
+                    }))}
+                    onFilter={(value, record) => record.type.id == value}
                     render={typeFormatter} />
                 <Table.Column
                     title="Persons"
