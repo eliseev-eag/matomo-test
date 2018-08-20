@@ -1,35 +1,25 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import { Table } from 'antd';
 
 const dateFormatter = date => date.toLocaleString();
+const typeFormatter = type => type.type
+
+const personsFormatter = persons => persons
+    .map(person => `${person.surname} ${person.name} ${person.patron}`)
+    .join()
+
+const toponymsFormatter = toponyms => toponyms.map(toponym => toponym.name).join()
 
 class EditorTable extends PureComponent {
-    typeFormatter = type => {
-        const { eventTypes } = this.props.eventsData;
-        return (eventTypes.find(eventType => eventType.id === type).type);
-    }
-
-    personsFormatter = items => {
-        const { persons } = this.props.eventsData;
-        return (items && items.map(personId => persons.find(person => person.id === personId))
-            .map(person => `${person.surname} ${person.name} ${person.patron}`)
-            .join())
-    }
-    toponymsFormatter = items => {
-        const { toponyms } = this.props.eventsData;
-        return (items &&
-            items.map(toponymId => toponyms.find(toponym => toponym.id === toponymId).name)
-                .join());
-    }
-
     onRow = record => ({
         onClick: !this.props.onSelect ? undefined :
             () => this.props.onSelect(record)
     });
 
     render() {
-        const { events } = this.props.eventsData;
+        const { events } = this.props;
 
         return (
             <Table
@@ -51,26 +41,56 @@ class EditorTable extends PureComponent {
                     title="Type"
                     dataIndex="type"
                     width="15%"
-                    render={this.typeFormatter} />
+                    render={typeFormatter} />
                 <Table.Column
                     title="Persons"
                     dataIndex="persons"
                     width="15%"
-                    render={this.personsFormatter}
+                    render={personsFormatter}
                 />
                 <Table.Column
                     title="Toponyms"
                     dataIndex="toponyms"
                     width="15%"
-                    render={this.toponymsFormatter}
+                    render={toponymsFormatter}
                 />
             </Table>
         );
     }
 }
 
+
+const toponymsSelector = state => state.eventsData.toponyms;
+
+const personsSelector = state => state.eventsData.persons;
+
+const eventTypesSelector = state => state.eventsData.eventTypes;
+
+const eventsSelector = state => state.eventsData.events;
+
+const eventsResultSelector = createSelector(
+    toponymsSelector,
+    personsSelector,
+    eventTypesSelector,
+    eventsSelector,
+    (toponyms, persons, eventTypes, events) =>
+        events.map(event => ({
+            ...event,
+            type: eventTypes.find(type => type.id === event.type),
+            persons: event.persons ?
+                event.persons.map(personId => persons.find(person => person.id === personId))
+                : [],
+            toponyms: event.toponyms ?
+                event.toponyms.map(toponymId => toponyms.find(toponym => toponym.id === toponymId))
+                : []
+        }))
+)
+
 const connectedEditorTable = connect(state => ({
-    eventsData: state.eventsData
+    toponyms: toponymsSelector(state),
+    persons: personsSelector(state),
+    eventTypes: eventTypesSelector(state),
+    events: eventsResultSelector(state)
 }))(EditorTable)
 
 export { connectedEditorTable as EditorTable };
