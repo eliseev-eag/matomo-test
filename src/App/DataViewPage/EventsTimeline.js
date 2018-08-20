@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Timeline from 'react-visjs-timeline';
-import { changeTimelineRange } from './ducks';
+import { changeTimelineRange } from '../../ducks';
 
 const options = {
     align: 'center',

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Link, Redirect, Switch, withRouter } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
-import { loadEvents } from './ducks';
+import { loadEvents } from '../ducks';
 import { DataViewPage } from './DataViewPage';
 import { DataEditorPage } from './DataEditorPage';
 class App extends Component {
