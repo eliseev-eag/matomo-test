@@ -122,9 +122,9 @@ const WrappedEventForm = Form.create()(EventForm);
 
 const ConnectedWrappedEventForm = connect(
     state => ({
-        eventTypes: state.eventsData.eventTypes,
-        toponyms: state.eventsData.toponyms,
-        persons: state.eventsData.persons
+        eventTypes: state.eventTypes,
+        toponyms: state.toponyms,
+        persons: state.persons
     })
 )(WrappedEventForm);
 

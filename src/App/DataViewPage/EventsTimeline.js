@@ -67,8 +67,8 @@ class EventsTimeline extends PureComponent {
 
 const connectedTimeline = connect(
     state => ({
-        events: state.eventsData.events,
-        eventTypes: state.eventsData.eventTypes
+        events: state.events,
+        eventTypes: state.eventTypes
     }),
     dispatch => ({ actions: bindActionCreators({ changeTimelineRange }, dispatch) })
 )(EventsTimeline);

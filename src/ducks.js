@@ -31,26 +31,24 @@ export const reducer = combineReducers({
         [loadEventsRequest]: () => true,
         [combineActions(loadEventsSuccess, loadEventsFailure)]: () => false,
     }, false),
-    eventsData: combineReducers({
-        eventTypes: handleActions({
-            [loadEventsSuccess]: (state, data) => data.payload.eventTypes
-        }, []),
-        persons: handleActions({
-            [loadEventsSuccess]: (state, data) => data.payload.persons
-        }, []),
-        toponyms: handleActions({
-            [loadEventsSuccess]: (state, data) => data.payload.toponyms
-        }, []),
-        events: handleActions({
-            [loadEventsSuccess]: (state, data) => orderBy(data.payload.events.map(event => ({
-                ...event,
-                startDate: new Date(event.startDate),
-                endDate: new Date(event.endDate),
-            })), event => event.endDate - event.startDate, 'desc'),
-            [saveEvent]: (state, data) =>
-                state.map(event => event.id === data.payload.id ? data.payload : event)
-        }, []),
-    }),
+    eventTypes: handleActions({
+        [loadEventsSuccess]: (state, data) => data.payload.eventTypes
+    }, []),
+    persons: handleActions({
+        [loadEventsSuccess]: (state, data) => data.payload.persons
+    }, []),
+    toponyms: handleActions({
+        [loadEventsSuccess]: (state, data) => data.payload.toponyms
+    }, []),
+    events: handleActions({
+        [loadEventsSuccess]: (state, data) => orderBy(data.payload.events.map(event => ({
+            ...event,
+            startDate: new Date(event.startDate),
+            endDate: new Date(event.endDate),
+        })), event => event.endDate - event.startDate, 'desc'),
+        [saveEvent]: (state, data) =>
+            state.map(event => event.id === data.payload.id ? data.payload : event)
+    }, []),
     errorOccured: handleActions({
         [loadEventsFailure]: () => true
     }, false),

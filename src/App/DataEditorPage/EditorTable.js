@@ -68,13 +68,13 @@ class EditorTable extends PureComponent {
 }
 
 
-const toponymsSelector = state => state.eventsData.toponyms;
+const toponymsSelector = state => state.toponyms;
 
-const personsSelector = state => state.eventsData.persons;
+const personsSelector = state => state.persons;
 
-const eventTypesSelector = state => state.eventsData.eventTypes;
+const eventTypesSelector = state => state.eventTypes;
 
-const eventsSelector = state => state.eventsData.events;
+const eventsSelector = state => state.events;
 
 const eventsResultSelector = createSelector(
     toponymsSelector,
