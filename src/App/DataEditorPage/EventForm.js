@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { Form, Input, Button, Row, Col, DatePicker } from 'antd';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { pick } from 'lodash-es';
+import { Form, Input, Button, Row, Col, DatePicker, Select } from 'antd';
 
-class EventForm extends Component {
+class EventForm extends PureComponent {
     rules = {
         name: {
             rules: [{ required: true }],
@@ -16,20 +18,32 @@ class EventForm extends Component {
             rules: [{ required: true }],
         },
         persons: {
-            rules: []
+            rules: [{ type: 'array' }]
         },
         toponyms: {
-            rules: []
+            rules: [{ type: 'array' }]
         }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.event !== prevProps.event) {
-            this.props.form.setFieldsValue(this.props.event)
+            const fieldsValues = pick(this.props.event, Object.keys(this.rules));
+            this.props.form.setFieldsValue(fieldsValues)
         }
     }
+
+    onSubmit = event => {
+        const { form, onSubmit } = this.props;
+        event.preventDefault();
+        form.validateFields((err, values) => {
+            if (!err) {
+                onSubmit(values);
+            }
+        });
+    }
+
     render() {
-        const { form: { getFieldDecorator }, onClick } = this.props;
+        const { form: { getFieldDecorator }, onClick, eventTypes, persons, toponyms } = this.props;
 
         return (
             <div>
@@ -38,7 +52,7 @@ class EventForm extends Component {
                         <Button onClick={onClick} shape="circle" icon="close" />
                     </Col>
                 </Row>
-                <Form layout="vertical">
+                <Form layout="vertical" onSubmit={this.onSubmit}>
                     <Row>
                         <Form.Item label="Название">
                             {getFieldDecorator('name', this.rules['name'])(
@@ -63,21 +77,35 @@ class EventForm extends Component {
                     <Row>
                         <Form.Item label="Тип">
                             {getFieldDecorator('type', this.rules['type'])(
-                                <Input placeholder="Название" />
+                                <Select placeholder="Выберите тип события" >
+                                    {eventTypes.map(eventType =>
+                                        <Select.Option key={eventType.id} value={eventType.id}>{eventType.type}</Select.Option>
+                                    )}
+                                </Select>
                             )}
                         </Form.Item>
                     </Row>
                     <Row>
                         <Form.Item label="Топонимы">
                             {getFieldDecorator('toponyms', this.rules['toponyms'])(
-                                <Input placeholder="Название" />
+                                <Select mode="multiple" placeholder="Выберите топонимы" >
+                                    {toponyms.map(toponym =>
+                                        <Select.Option key={toponym.id} value={toponym.id}>{toponym.name}</Select.Option>
+                                    )}
+                                </Select>
                             )}
                         </Form.Item>
                     </Row>
                     <Row>
                         <Form.Item label="Действующие лица">
                             {getFieldDecorator('persons', this.rules['persons'])(
-                                <Input placeholder="Название" />
+                                <Select mode="multiple" placeholder="Выберите топонимы" >
+                                    {persons.map(person =>
+                                        <Select.Option key={person.id} value={person.id}>
+                                            {`${person.surname} ${person.name} ${person.patron}`}
+                                        </Select.Option>
+                                    )}
+                                </Select>
                             )}
                         </Form.Item>
                     </Row>
@@ -92,4 +120,12 @@ class EventForm extends Component {
 
 const WrappedEventForm = Form.create()(EventForm);
 
-export { WrappedEventForm as EventForm };
+const ConnectedWrappedEventForm = connect(
+    state => ({
+        eventTypes: state.eventsData.eventTypes,
+        toponyms: state.eventsData.toponyms,
+        persons: state.eventsData.persons
+    })
+)(WrappedEventForm);
+
+export { ConnectedWrappedEventForm as EventForm };

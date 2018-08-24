@@ -25,6 +25,10 @@ class DataEditorPage extends Component {
 
     closeForm = () => this.setState({ event: null });
 
+    onSave = value => {
+        const changedValue = { ...this.state.event, ...value };
+    }
+
     render() {
         const { event } = this.state;
 
@@ -35,7 +39,7 @@ class DataEditorPage extends Component {
                 </Row>
                 <Row>
                     <Col span={event ? 6 : 0}>
-                        <EventForm event={event} onClick={this.closeForm} />
+                        <EventForm event={event} onClick={this.closeForm} onSubmit={this.onSave} />
                     </Col>
                     <Col span={event ? 18 : 24}>
                         <EditorTable onSelect={this.onSelect} />
