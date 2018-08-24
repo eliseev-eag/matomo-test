@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { Table } from 'antd';
 
-const dateFormatter = date => date.toLocaleString();
+const dateFormatter = date => date.toLocaleString("ru", {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+});
 const typeFormatter = type => type.type;
 const personsFormatter = persons => persons
     .map(person => `${person.surname} ${person.name} ${person.patron}`)
@@ -11,6 +15,7 @@ const personsFormatter = persons => persons
 const toponymsFormatter = toponyms => toponyms.map(toponym => toponym.name).join();
 
 const startDateSorter = (a, b) => a.startDate - b.startDate;
+
 const endDateSorter = (a, b) => a.endDate - b.endDate
 
 class EditorTable extends PureComponent {

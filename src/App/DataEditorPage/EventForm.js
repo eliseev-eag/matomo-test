@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { pick } from 'lodash-es';
 import { Form, Input, Button, Row, Col, DatePicker, Select } from 'antd';
 
+const dateFormat = 'DD.MM.YYYY';
+
 class EventForm extends PureComponent {
+    state = {
+        toponyms: this.props.toponyms.slice(0, 5)
+    }
+
     rules = {
         name: {
             rules: [{ required: true }],
@@ -28,7 +34,18 @@ class EventForm extends PureComponent {
     componentDidUpdate(prevProps) {
         if (this.props.event !== prevProps.event) {
             const fieldsValues = pick(this.props.event, Object.keys(this.rules));
-            this.props.form.setFieldsValue(fieldsValues)
+            this.props.form.setFieldsValue(fieldsValues);
+            this.setState({
+                toponyms: [
+                    ...this.props.toponyms.slice(0, 5),
+                    ...this.props.event.toponyms.map(
+                        toponymId => this.props.toponyms.find(event => event.id === toponymId
+                        ))
+                ]
+            })
+        }
+        if (this.props.toponyms !== prevProps.toponyms) {
+            this.setState({ toponyms: this.props.toponyms.slice(0, 5) })
         }
     }
 
@@ -40,6 +57,13 @@ class EventForm extends PureComponent {
                 onSubmit(values);
             }
         });
+    }
+
+    onToponymsSearch = value => {
+        const toponyms = this.props.toponyms.filter(
+            toponym => toponym.name.toLowerCase().includes(value.toLocaleLowerCase()
+            ));
+        this.setState({ toponyms });
     }
 
     render() {
@@ -63,14 +87,14 @@ class EventForm extends PureComponent {
                     <Row>
                         <Form.Item label="Дата начала">
                             {getFieldDecorator('startDate', this.rules['startDate'])(
-                                <DatePicker />
+                                <DatePicker format={dateFormat} />
                             )}
                         </Form.Item>
                     </Row>
                     <Row>
                         <Form.Item label="Дата окончания">
                             {getFieldDecorator('endDate', this.rules['endDate'])(
-                                <DatePicker />
+                                <DatePicker format={dateFormat} />
                             )}
                         </Form.Item>
                     </Row>
@@ -88,8 +112,10 @@ class EventForm extends PureComponent {
                     <Row>
                         <Form.Item label="Топонимы">
                             {getFieldDecorator('toponyms', this.rules['toponyms'])(
-                                <Select mode="multiple" placeholder="Выберите топонимы" >
-                                    {toponyms.map(toponym =>
+                                <Select mode="multiple" placeholder="Выберите топонимы" filterOption={false}
+                                    onSearch={this.onToponymsSearch}
+                                >
+                                    {this.state.toponyms.map(toponym =>
                                         <Select.Option key={toponym.id} value={toponym.id}>{toponym.name}</Select.Option>
                                     )}
                                 </Select>

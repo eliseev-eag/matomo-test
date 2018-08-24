@@ -29,7 +29,12 @@ class DataEditorPage extends Component {
     closeForm = () => this.setState({ event: null });
 
     onSave = value => {
-        const changedValue = { ...this.state.event, ...value };
+        const changedValue = {
+            ...this.state.event,
+            ...value,
+            endDate: value.endDate.toDate(),
+            startDate: value.startDate.toDate()
+        };
         this.props.saveEvent(changedValue);
         this.closeForm();
     }
