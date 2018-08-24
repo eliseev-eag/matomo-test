@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import { DownloadButton } from './DownloadButton';
 import { EditorTable } from './EditorTable';
 import { EventForm } from './EventForm';
+import { saveEvent } from '../../ducks';
 import moment from 'moment';
 
 class DataEditorPage extends Component {
@@ -27,6 +30,8 @@ class DataEditorPage extends Component {
 
     onSave = value => {
         const changedValue = { ...this.state.event, ...value };
+        this.props.saveEvent(changedValue);
+        this.closeForm();
     }
 
     render() {
@@ -50,4 +55,9 @@ class DataEditorPage extends Component {
     }
 }
 
-export { DataEditorPage };
+const connectedDataEditorPage = connect(
+    null,
+    dispatch => bindActionCreators({ saveEvent }, dispatch)
+)(DataEditorPage);
+
+export { connectedDataEditorPage as DataEditorPage };
