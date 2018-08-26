@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { pick } from 'lodash-es';
 import { Form, Input, Button, Row, Col, DatePicker, Select } from 'antd';
+import { LazySelectSearch } from '../../components/LazySelectSearch';
 
 const dateFormat = 'DD.MM.YYYY';
 
 class EventForm extends PureComponent {
-    state = {
-        toponyms: this.props.toponyms.slice(0, 5)
-    }
+    // state = {
+    //     toponyms: this.props.toponyms.slice(0, 5)
+    // }
 
     rules = {
         name: {
@@ -32,21 +33,24 @@ class EventForm extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.event !== prevProps.event) {
-            const fieldsValues = pick(this.props.event, Object.keys(this.rules));
-            this.props.form.setFieldsValue(fieldsValues);
-            this.setState({
-                toponyms: [
-                    ...this.props.toponyms.slice(0, 5),
-                    ...this.props.event.toponyms.map(
-                        toponymId => this.props.toponyms.find(event => event.id === toponymId
-                        ))
-                ]
-            })
+        const { form, event } = this.props;
+        if (event !== prevProps.event) {
+            const fieldsValues = pick(event, Object.keys(this.rules));
+            form.setFieldsValue(fieldsValues);
+
+            // const eventToponyms = event ? event.toponyms : [];
+            // this.setState({
+            //     toponyms: [
+            //         ...toponyms.slice(0, 5),
+            //         ...eventToponyms.map(
+            //             toponymId => toponyms.find(event => event.id === toponymId
+            //             ))
+            //     ]
+            // })
         }
-        if (this.props.toponyms !== prevProps.toponyms) {
-            this.setState({ toponyms: this.props.toponyms.slice(0, 5) })
-        }
+        // if (toponyms !== prevProps.toponyms) {
+        //     this.setState({ toponyms: toponyms.slice(0, 5) })
+        // }
     }
 
     onSubmit = event => {
@@ -59,12 +63,12 @@ class EventForm extends PureComponent {
         });
     }
 
-    onToponymsSearch = value => {
-        const toponyms = this.props.toponyms.filter(
-            toponym => toponym.name.toLowerCase().includes(value.toLocaleLowerCase()
-            ));
-        this.setState({ toponyms });
-    }
+    // onToponymsSearch = value => {
+    //     const toponyms = this.props.toponyms.filter(
+    //         toponym => toponym.name.toLowerCase().includes(value.toLocaleLowerCase()
+    //         ));
+    //     this.setState({ toponyms });
+    // }
 
     render() {
         const { form: { getFieldDecorator }, onClick, eventTypes, persons, toponyms } = this.props;
@@ -112,13 +116,14 @@ class EventForm extends PureComponent {
                     <Row>
                         <Form.Item label="Топонимы">
                             {getFieldDecorator('toponyms', this.rules['toponyms'])(
-                                <Select mode="multiple" placeholder="Выберите топонимы" filterOption={false}
-                                    onSearch={this.onToponymsSearch}
-                                >
-                                    {this.state.toponyms.map(toponym =>
-                                        <Select.Option key={toponym.id} value={toponym.id}>{toponym.name}</Select.Option>
-                                    )}
-                                </Select>
+                                <LazySelectSearch allOptions={toponyms} placeholder="Выберите топонимы" />
+                                // <Select mode="multiple" placeholder="Выберите топонимы" filterOption={false}
+                                //     onSearch={this.onToponymsSearch}
+                                // >
+                                //     {this.state.toponyms.map(toponym =>
+                                //         <Select.Option key={toponym.id} value={toponym.id}>{toponym.name}</Select.Option>
+                                //     )}
+                                // </Select>
                             )}
                         </Form.Item>
                     </Row>
