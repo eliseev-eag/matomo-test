@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { uniq } from "lodash-es";
+import { uniq, debounce } from "lodash-es";
 import { Select } from "antd";
 
 class LazySelectSearch extends Component {
@@ -19,7 +19,7 @@ class LazySelectSearch extends Component {
     filteredOptions: []
   };
 
-  onSearch = value => {
+  onSearch = debounce(value => {
     const { allOptions, nameSelector } = this.props;
     const filteredOptions = allOptions.filter(option =>
       nameSelector(option)
@@ -27,6 +27,10 @@ class LazySelectSearch extends Component {
         .includes(value.toLocaleLowerCase())
     );
     this.setState({ filteredOptions });
+  }, 300);
+
+  onBlur = () => {
+    this.setState({ filteredOptions: [] });
   };
 
   onChange = value => {
@@ -48,9 +52,11 @@ class LazySelectSearch extends Component {
       allOptions.find(p => valueSelector(p) === v)
     );
     const options = filteredOptions.length
-      ? filteredOptions
+      ? filteredOptions.slice(0, count)
       : uniq([...allOptions.slice(0, count), ...mappedValues]);
-    const hidedOptionsCount = allOptions.length - options.length;
+    const hidedOptionsCount = filteredOptions.length
+      ? filteredOptions.length - count
+      : allOptions.length - options.length;
 
     return (
       <Select
@@ -59,6 +65,7 @@ class LazySelectSearch extends Component {
         filterOption={false}
         onSearch={this.onSearch}
         onChange={this.onChange}
+        onBlur={this.onBlur}
         value={value}
       >
         {options.map(option => (
