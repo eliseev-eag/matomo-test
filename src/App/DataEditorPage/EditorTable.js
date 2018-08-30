@@ -22,14 +22,21 @@ const startDateSorter = (a, b) => a.startDate - b.startDate;
 const endDateSorter = (a, b) => a.endDate - b.endDate;
 
 class EditorTable extends PureComponent {
-  rowSelection = { onSelect: this.props.onSelect, type: "radio" };
+  onRow = record => ({
+    onClick: !this.props.onSelect
+      ? undefined
+      : () => this.props.onSelect(record)
+  });
 
-  renderDeleteButton = (t, record) => (
+  renderDeleteButton = (_, record) => (
     <Button
       type="danger"
       shape="circle"
       icon="close"
-      onClick={() => this.props.deleteRow(record)}
+      onClick={event => {
+        event.stopPropagation();
+        this.props.deleteRow(record);
+      }}
     />
   );
 
@@ -41,19 +48,20 @@ class EditorTable extends PureComponent {
         dataSource={events}
         rowKey={event => event.id}
         rowSelection={this.rowSelection}
+        onRow={this.onRow}
       >
-        <Table.Column title="Name" dataIndex="name" width="40%" />
+        <Table.Column title="Name" dataIndex="name" width="35%" />
         <Table.Column
           title="Start date"
           dataIndex="startDate"
-          width="7.5%"
+          width="10%"
           sorter={startDateSorter}
           render={dateFormatter}
         />
         <Table.Column
           title="End date"
           dataIndex="endDate"
-          width="7.5%"
+          width="10%"
           sorter={endDateSorter}
           render={dateFormatter}
         />
