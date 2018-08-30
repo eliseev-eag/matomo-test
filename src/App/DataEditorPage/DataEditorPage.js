@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import { DownloadButton } from "./DownloadButton";
 import { EditorTable } from "./EditorTable";
 import { EventForm } from "./EventForm";
@@ -49,20 +49,17 @@ class DataEditorPage extends Component {
           <DownloadButton />
         </Row>
         <Row>
-          <Col span={event ? 6 : 0}>
-            <EventForm
-              event={event}
-              onClick={this.closeForm}
-              onSubmit={this.onSave}
-            />
-          </Col>
-          <Col span={event ? 18 : 24}>
-            <EditorTable
-              onSelect={this.onSelect}
-              deleteRow={this.props.deleteEvent}
-            />
-          </Col>
+          <EditorTable
+            onSelect={this.onSelect}
+            deleteRow={this.props.deleteEvent}
+          />
         </Row>
+        <EventForm
+          event={event}
+          visible={event !== null}
+          onClose={this.closeForm}
+          onSubmit={this.onSave}
+        />
       </div>
     );
   }

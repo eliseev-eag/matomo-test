@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { pick } from "lodash-es";
-import { Form, Input, Button, Row, Col, DatePicker, Select } from "antd";
+import { Form, Input, Row, DatePicker, Select, Modal } from "antd";
 import { LazySelectSearch } from "../../components/LazySelectSearch";
 
 const dateFormat = "DD.MM.YYYY";
@@ -49,20 +49,21 @@ class EventForm extends PureComponent {
   render() {
     const {
       form: { getFieldDecorator },
-      onClick,
+      visible,
+      onClose,
       eventTypes,
       persons,
       toponyms
     } = this.props;
 
     return (
-      <div>
-        <Row type="flex" justify="end">
-          <Col span={3}>
-            <Button onClick={onClick} shape="circle" icon="close" />
-          </Col>
-        </Row>
-        <Form layout="vertical" onSubmit={this.onSubmit}>
+      <Modal
+        visible={visible}
+        okText="Сохранить"
+        onCancel={onClose}
+        onOk={this.onSubmit}
+      >
+        <Form layout="vertical">
           <Row>
             <Form.Item label="Название">
               {getFieldDecorator("name", rules["name"])(
@@ -118,13 +119,8 @@ class EventForm extends PureComponent {
               )}
             </Form.Item>
           </Row>
-          <Row>
-            <Button type="primary" htmlType="submit">
-              Сохранить
-            </Button>
-          </Row>
         </Form>
-      </div>
+      </Modal>
     );
   }
 }
