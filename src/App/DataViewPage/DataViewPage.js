@@ -1,14 +1,6 @@
-import React, { Component } from 'react';
-import { Timeline } from './EventsTimeline';
+import React from "react";
+import { Timeline } from "./EventsTimeline";
 
-class DataViewPage extends Component {
-    static ROUTE = "view";
-
-    render() {
-        return (
-            <Timeline />
-        );
-    }
-}
+const DataViewPage = () => <Timeline />;
 
 export { DataViewPage };

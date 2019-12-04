@@ -9,8 +9,6 @@ import { editEvent, deleteEvent } from "../../ducks";
 import moment from "moment";
 
 class DataEditorPage extends Component {
-  static ROUTE = "editor";
-
   state = {
     event: null
   };
@@ -65,9 +63,8 @@ class DataEditorPage extends Component {
   }
 }
 
-const connectedDataEditorPage = connect(
-  null,
-  dispatch => bindActionCreators({ editEvent, deleteEvent }, dispatch)
+const connectedDataEditorPage = connect(null, dispatch =>
+  bindActionCreators({ editEvent, deleteEvent }, dispatch)
 )(DataEditorPage);
 
 export { connectedDataEditorPage as DataEditorPage };
