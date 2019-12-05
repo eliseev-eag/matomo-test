@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Layout, Row } from "antd";
+import { Layout, PageHeader } from "antd";
 import { DownloadButton } from "./DownloadButton";
 import { EditorTable } from "./EditorTable";
 import { EventForm } from "./EventForm";
@@ -48,24 +48,19 @@ const DataEditorPage = () => {
 
   return (
     <Layout>
-      <Layout.Header style={{ background: "#fff", textAlign: "center" }}>
-        Редактирование данных
-      </Layout.Header>
+      <PageHeader
+        ghost={false}
+        title="Редактирование данных"
+        extra={<DownloadButton />}
+      />
       <Layout.Content>
-        <div>
-          <Row>
-            <DownloadButton />
-          </Row>
-          <Row>
-            <EditorTable onSelect={onSelect} deleteRow={onDelete} />
-          </Row>
-          <EventForm
-            event={event}
-            visible={event !== null}
-            onClose={closeForm}
-            onSubmit={onSave}
-          />
-        </div>
+        <EditorTable onSelect={onSelect} deleteRow={onDelete} />
+        <EventForm
+          event={event}
+          visible={event !== null}
+          onClose={closeForm}
+          onSubmit={onSave}
+        />
       </Layout.Content>
     </Layout>
   );
