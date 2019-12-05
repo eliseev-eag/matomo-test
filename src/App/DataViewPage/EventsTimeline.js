@@ -1,76 +1,67 @@
-import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Timeline from 'react-visjs-timeline';
-import { changeTimelineRange } from '../../ducks';
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { flow } from "lodash-es";
+import Timeline from "react-visjs-timeline";
+import { changeTimelineRange } from "../../ducks";
+import { eventsSelector, eventTypesSelector } from "../../selectors";
 
-const options = {
-    align: 'center',
-    minHeight: '400px',
-    maxHeight: '400px',
-    type: 'range',
-    tooltip: {
-        followMouse: true,
-        overflowMethod: 'cap'
-    },
-    snap: null,
-    orientation: { axis: 'both' },
-    zoomMin: 1000 * 60 * 60 * 24 * 5,
+const TIMELINE_OPTIONS = {
+  align: "center",
+  minHeight: "400px",
+  maxHeight: "400px",
+  type: "range",
+  tooltip: {
+    followMouse: true,
+    overflowMethod: "cap"
+  },
+  snap: null,
+  orientation: { axis: "both" },
+  zoomMin: 1000 * 60 * 60 * 24 * 5
 };
 
-class EventsTimeline extends PureComponent {
-    state = {
-        events: [],
-        eventTypes: []
-    }
+const eventTypesToGroupSelector = flow(eventTypesSelector, eventTypes =>
+  eventTypes.map(eventType => ({
+    id: eventType.id,
+    content: eventType.type
+  }))
+);
 
-    static getDerivedStateFromProps(props) {
-        const { events, eventTypes } = props;
+const eventsToTimelineItemsSelector = flow(eventsSelector, events =>
+  events.slice(0, 10).map(event => ({
+    start: event.startDate,
+    end: event.endDate,
+    content: event.name,
+    duration: event.endDate - event.startDate,
+    group: event.type,
+    type:
+      event.endDate - event.startDate <= 1000 * 60 * 60 * 24 ? "point" : "range"
+  }))
+);
 
-        const stateEventTypes = eventTypes.map(group => ({
-            id: group.id,
-            content: group.type
-        }));
+const EventsTimeline = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(eventsToTimelineItemsSelector);
+  const groups = useSelector(eventTypesToGroupSelector);
 
-        const stateEvents = events.slice(0, 10)
-            .map(event => ({
-                start: event.startDate,
-                end: event.endDate,
-                content: event.name,
-                duration: event.endDate - event.startDate,
-                group: event.type,
-                type: event.endDate - event.startDate <= (1000 * 60 * 60 * 24) ? 'point' : 'range',
-            }));
+  const onRangeChangedHandler = useCallback(
+    ({ start, end }) => {
+      dispatch(changeTimelineRange({ start, end }));
+    },
+    [dispatch]
+  );
 
-        return ({ events: stateEvents, eventTypes: stateEventTypes });
-    }
+  return (
+    <div>
+      {items && items.length > 0 && (
+        <Timeline
+          options={TIMELINE_OPTIONS}
+          items={items}
+          groups={groups}
+          rangechangedHandler={onRangeChangedHandler}
+        />
+      )}
+    </div>
+  );
+};
 
-    rangechangedHandler = ({ start, end }) => {
-        this.props.actions.changeTimelineRange({ start, end });
-    }
-
-    render() {
-        const { events, eventTypes } = this.state;
-
-        return (
-            <div>
-                {events && events.length > 0 &&
-                    <Timeline options={options}
-                        items={events}
-                        groups={eventTypes}
-                        rangechangedHandler={this.rangechangedHandler} />
-                }
-            </div>
-        );
-    }
-}
-
-const connectedTimeline = connect(
-    state => ({
-        events: state.events,
-        eventTypes: state.eventTypes
-    }),
-    dispatch => ({ actions: bindActionCreators({ changeTimelineRange }, dispatch) })
-)(EventsTimeline);
-
-export { connectedTimeline as Timeline };
+export { EventsTimeline as Timeline };
