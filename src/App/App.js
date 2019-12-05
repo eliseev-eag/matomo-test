@@ -30,6 +30,12 @@ const App = () => {
         collapsible
         collapsed={collapsed}
         onCollapse={setCollapsed}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "fixed",
+          left: 0
+        }}
       >
         <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
           <Menu.Item key={viewDataPage}>
@@ -46,7 +52,12 @@ const App = () => {
           </Menu.Item>
         </Menu>
       </Layout.Sider>
-      <Layout>
+      <Layout
+        style={{
+          marginLeft: collapsed ? 80 : 200,
+          transition: "margin 0.2s"
+        }}
+      >
         <Layout.Content>
           <Switch>
             <Route path={viewDataPage} component={DataViewPage} />
