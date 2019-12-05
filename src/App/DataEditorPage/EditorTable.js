@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { Table, Button } from "antd";
+import { Popconfirm, Table } from "antd";
 import {
   eventTypesSelector,
   eventsSelector,
@@ -59,15 +59,27 @@ const EditorTable = ({ onSelect, deleteRow }) => {
   );
 
   const renderDeleteButton = (_, record) => (
-    <a
-      onClick={event => {
+    <Popconfirm
+      title="Вы уверены?"
+      onConfirm={event => {
         event.stopPropagation();
         deleteRow(record);
       }}
-      ghost
+      onCancel={event => {
+        event.stopPropagation();
+      }}
+      okText="Да"
+      cancelText="Нет"
     >
-      Удалить
-    </a>
+      <a
+        onClick={event => {
+          event.stopPropagation();
+        }}
+        ghost
+      >
+        Удалить
+      </a>
+    </Popconfirm>
   );
 
   return (
