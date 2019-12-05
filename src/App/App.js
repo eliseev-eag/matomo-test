@@ -9,6 +9,8 @@ import { editorDataPage, viewDataPage } from "./routes";
 
 const ROUTES = [viewDataPage, editorDataPage];
 
+const FULL_SIDER_WIDTH = 240;
+
 const App = () => {
   const [collapsed, setCollapsed] = useState(true);
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const App = () => {
       <Layout.Sider
         theme="dark"
         collapsible
+        width={FULL_SIDER_WIDTH}
         collapsed={collapsed}
         onCollapse={setCollapsed}
         style={{
@@ -41,20 +44,20 @@ const App = () => {
           <Menu.Item key={viewDataPage}>
             <Link to={viewDataPage}>
               <Icon type="pie-chart" />
-              <span>Data View</span>
+              <span>Просмотр данных</span>
             </Link>
           </Menu.Item>
           <Menu.Item key={editorDataPage}>
             <Link to={editorDataPage}>
               <Icon type="edit" />
-              <span>Data Editor</span>
+              <span>Редактирование данных</span>
             </Link>
           </Menu.Item>
         </Menu>
       </Layout.Sider>
       <Layout
         style={{
-          marginLeft: collapsed ? 80 : 200,
+          marginLeft: collapsed ? 80 : FULL_SIDER_WIDTH,
           transition: "margin 0.2s"
         }}
       >

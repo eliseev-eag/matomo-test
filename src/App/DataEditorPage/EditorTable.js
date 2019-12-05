@@ -59,16 +59,15 @@ const EditorTable = ({ onSelect, deleteRow }) => {
   );
 
   const renderDeleteButton = (_, record) => (
-    <Button
-      size="small"
-      type="primary"
-      icon="close"
+    <a
       onClick={event => {
         event.stopPropagation();
         deleteRow(record);
       }}
       ghost
-    />
+    >
+      Удалить
+    </a>
   );
 
   return (
@@ -77,23 +76,23 @@ const EditorTable = ({ onSelect, deleteRow }) => {
       rowKey={event => event.id}
       onRow={onRow}
     >
-      <Table.Column title="Name" dataIndex="name" width="35%" />
+      <Table.Column title="Название" dataIndex="name" width="35%" />
       <Table.Column
-        title="Start date"
+        title="Дата начала"
         dataIndex="startDate"
         width="10%"
         sorter={startDateSorter}
         render={dateFormatter}
       />
       <Table.Column
-        title="End date"
+        title="Дата окончания"
         dataIndex="endDate"
         width="10%"
         sorter={endDateSorter}
         render={dateFormatter}
       />
       <Table.Column
-        title="Type"
+        title="Тип"
         dataIndex="type"
         width="10%"
         filters={eventTypes.map(eventType => ({
@@ -104,23 +103,18 @@ const EditorTable = ({ onSelect, deleteRow }) => {
         render={typeFormatter}
       />
       <Table.Column
-        title="Persons"
+        title="Действующие лица"
         dataIndex="persons"
         width="15%"
         render={personsFormatter}
       />
       <Table.Column
-        title="Toponyms"
+        title="Топонимы"
         dataIndex="toponyms"
         width="15%"
         render={toponymsFormatter}
       />
-      <Table.Column
-        title=""
-        key="delete"
-        width="5%"
-        render={renderDeleteButton}
-      />
+      <Table.Column title="" key="delete" render={renderDeleteButton} />
     </Table>
   );
 };

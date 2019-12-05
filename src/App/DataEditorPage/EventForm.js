@@ -144,11 +144,8 @@ const EventForm = ({
             textAlign: "right"
           }}
         >
-          <Button onClick={onClose} style={{ marginRight: 8 }}>
-            Cancel
-          </Button>
           <Button onClick={onSubmitHandler} type="primary">
-            Submit
+            Сохранить
           </Button>
         </div>
       </Form>
