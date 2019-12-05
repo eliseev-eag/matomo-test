@@ -7,7 +7,6 @@ import { DataViewPage } from "./DataViewPage";
 import { DataEditorPage } from "./DataEditorPage";
 import { editorDataPage, viewDataPage } from "./routes";
 
-const { Content, Sider } = Layout;
 const ROUTES = [viewDataPage, editorDataPage];
 
 const App = () => {
@@ -26,7 +25,12 @@ const App = () => {
 
   return (
     <Layout style={{ minHeight: "100vh" }} hasSider>
-      <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
+      <Layout.Sider
+        theme="dark"
+        collapsible
+        collapsed={collapsed}
+        onCollapse={setCollapsed}
+      >
         <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
           <Menu.Item key={viewDataPage}>
             <Link to={viewDataPage}>
@@ -41,15 +45,15 @@ const App = () => {
             </Link>
           </Menu.Item>
         </Menu>
-      </Sider>
+      </Layout.Sider>
       <Layout>
-        <Content>
+        <Layout.Content>
           <Switch>
             <Route path={viewDataPage} component={DataViewPage} />
             <Route path={editorDataPage} component={DataEditorPage} />
             <Redirect to={viewDataPage} />
           </Switch>
-        </Content>
+        </Layout.Content>
       </Layout>
     </Layout>
   );
