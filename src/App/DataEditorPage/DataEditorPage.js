@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Layout, Row } from "antd";
 import { DownloadButton } from "./DownloadButton";
 import { EditorTable } from "./EditorTable";
@@ -8,70 +7,68 @@ import { EventForm } from "./EventForm";
 import { editEvent, deleteEvent } from "../../ducks";
 import moment from "moment";
 
-class DataEditorPage extends Component {
-  state = {
-    event: null
-  };
+const DataEditorPage = () => {
+  const dispatch = useDispatch();
+  const [event, setEvent] = useState(null);
+  const onSelect = useCallback(
+    value =>
+      setEvent({
+        ...value,
+        startDate: moment(value.startDate),
+        endDate: moment(value.endDate),
+        type: value.type.id,
+        toponyms: value.toponyms.map(toponym => toponym.id),
+        persons: value.persons.map(person => person.id)
+      }),
+    []
+  );
 
-  onSelect = event =>
-    this.setState({
-      event: {
-        ...event,
-        startDate: moment(event.startDate),
-        endDate: moment(event.endDate),
-        type: event.type.id,
-        toponyms: event.toponyms.map(toponym => toponym.id),
-        persons: event.persons.map(person => person.id)
-      }
-    });
+  const closeForm = useCallback(() => setEvent(null), []);
 
-  closeForm = () => this.setState({ event: null });
+  const onSave = useCallback(
+    value => {
+      dispatch(
+        editEvent({
+          ...value,
+          endDate: value.endDate.toDate(),
+          startDate: value.startDate.toDate()
+        })
+      );
+      closeForm();
+    },
+    [dispatch, closeForm]
+  );
 
-  onSave = value => {
-    const changedValue = {
-      ...this.state.event,
-      ...value,
-      endDate: value.endDate.toDate(),
-      startDate: value.startDate.toDate()
-    };
-    this.props.editEvent(changedValue);
-    this.closeForm();
-  };
+  const onDelete = useCallback(
+    value => {
+      dispatch(deleteEvent(value));
+    },
+    [dispatch]
+  );
 
-  render() {
-    const { event } = this.state;
+  return (
+    <Layout>
+      <Layout.Header style={{ background: "#fff", textAlign: "center" }}>
+        Редактирование данных
+      </Layout.Header>
+      <Layout.Content>
+        <div>
+          <Row>
+            <DownloadButton />
+          </Row>
+          <Row>
+            <EditorTable onSelect={onSelect} deleteRow={onDelete} />
+          </Row>
+          <EventForm
+            event={event}
+            visible={event !== null}
+            onClose={closeForm}
+            onSubmit={onSave}
+          />
+        </div>
+      </Layout.Content>
+    </Layout>
+  );
+};
 
-    return (
-      <Layout>
-        <Layout.Header style={{ background: "#fff", textAlign: "center" }}>
-          Редактирование данных
-        </Layout.Header>
-        <Layout.Content>
-          <div>
-            <Row>
-              <DownloadButton />
-            </Row>
-            <Row>
-              <EditorTable
-                onSelect={this.onSelect}
-                deleteRow={this.props.deleteEvent}
-              />
-            </Row>
-            <EventForm
-              event={event}
-              visible={event !== null}
-              onClose={this.closeForm}
-              onSubmit={this.onSave}
-            />
-          </div>
-        </Layout.Content>
-      </Layout>
-    );
-  }
-}
-
-const connectedDataEditorPage = connect(null, dispatch =>
-  bindActionCreators({ editEvent, deleteEvent }, dispatch)
-)(DataEditorPage);
-
-export { connectedDataEditorPage as DataEditorPage };
+export { DataEditorPage };
