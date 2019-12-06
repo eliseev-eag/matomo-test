@@ -1,71 +1,79 @@
-import React, { Component } from "react";
+import React, { forwardRef, useCallback, useMemo, useState } from "react";
 import { uniq, debounce } from "lodash-es";
 import { Select } from "antd";
 
-class LazySelectSearch extends Component {
-  static defaultProps = {
-    count: 5,
-    keySelector: option => option.id,
-    valueSelector: option => option.id,
-    nameSelector: option => option.name
-  };
+const idSelector = option => option.id;
+const DEFAULT_NAME_SELECTOR = option => option.name;
 
-  static getDerivedStateFromProps(props) {
-    return { value: props.value };
-  }
-
-  state = {
-    value: this.props.value,
-    filteredOptions: []
-  };
-
-  onSearch = debounce(value => {
-    const { allOptions, nameSelector } = this.props;
-    const filteredOptions = allOptions.filter(option =>
-      nameSelector(option)
-        .toLowerCase()
-        .includes(value.toLocaleLowerCase())
-    );
-    this.setState({ filteredOptions });
-  }, 300);
-
-  onBlur = () => {
-    this.setState({ filteredOptions: [] });
-  };
-
-  onChange = value => {
-    this.setState({ filteredOptions: [], value });
-    this.props.onChange(value);
-  };
-
-  render() {
-    const {
+const LazySelectSearch = forwardRef(
+  (
+    {
       allOptions,
-      count,
-      keySelector,
-      valueSelector,
-      nameSelector,
-      placeholder
-    } = this.props;
-    const { value = [], filteredOptions } = this.state;
-    const mappedValues = value.map(v =>
-      allOptions.find(p => valueSelector(p) === v)
+      value,
+      onChange,
+      placeholder,
+      count = 5,
+      keySelector = idSelector,
+      valueSelector = idSelector,
+      nameSelector = DEFAULT_NAME_SELECTOR
+    },
+    ref
+  ) => {
+    const [filteredOptions, setFilteredOptions] = useState([]);
+    const onSearch = useCallback(
+      debounce(inputValue => {
+        setFilteredOptions(
+          allOptions.filter(option =>
+            nameSelector(option)
+              .toLowerCase()
+              .includes(inputValue.toLocaleLowerCase())
+          )
+        );
+      }, 300),
+      [allOptions]
     );
-    const options = filteredOptions.length
-      ? filteredOptions.slice(0, count)
-      : uniq([...allOptions.slice(0, count), ...mappedValues]);
-    const hidedOptionsCount = filteredOptions.length
-      ? filteredOptions.length - count
-      : allOptions.length - options.length;
+
+    const onBlur = useCallback(() => {
+      setFilteredOptions([]);
+    }, []);
+
+    const onChangeHandler = useCallback(
+      newValue => {
+        setFilteredOptions([]);
+        onChange(newValue);
+      },
+      [onChange]
+    );
+
+    const mappedValues = useMemo(
+      () => value.map(v => allOptions.find(p => valueSelector(p) === v)),
+      [allOptions, value, valueSelector]
+    );
+
+    const options = useMemo(
+      () =>
+        filteredOptions.length
+          ? filteredOptions.slice(0, count)
+          : uniq([...allOptions.slice(0, count), ...mappedValues]),
+      [allOptions, count, filteredOptions, mappedValues]
+    );
+    const hidedOptionsCount = useMemo(
+      () =>
+        filteredOptions.length
+          ? filteredOptions.length - count
+          : allOptions.length - options.length,
+      [allOptions, count, filteredOptions, options.length]
+    );
 
     return (
       <Select
+        ref={ref}
         placeholder={placeholder}
         mode="multiple"
         filterOption={false}
-        onSearch={this.onSearch}
-        onChange={this.onChange}
-        onBlur={this.onBlur}
+        onSearch={onSearch}
+        onChange={onChangeHandler}
+        onBlur={onBlur}
         value={value}
       >
         {options.map(option => (
@@ -88,6 +96,6 @@ class LazySelectSearch extends Component {
       </Select>
     );
   }
-}
+);
 
 export { LazySelectSearch };
