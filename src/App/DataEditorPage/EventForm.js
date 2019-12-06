@@ -43,11 +43,11 @@ const EventForm = ({
   const toponyms = useSelector(toponymsSelector);
   const persons = useSelector(personsSelector);
 
-  const onSubmitHandler = event => {
-    event.preventDefault();
+  const onSubmitHandler = e => {
+    e.preventDefault();
     validateFields((err, values) => {
       if (!err) {
-        onSubmit(values);
+        onSubmit({ id: event.id, ...values });
       }
     });
   };
