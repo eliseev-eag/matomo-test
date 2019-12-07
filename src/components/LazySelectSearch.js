@@ -1,6 +1,6 @@
-import React, { forwardRef, useCallback, useMemo, useState } from "react";
-import { uniq, debounce } from "lodash-es";
-import { Select } from "antd";
+import React, { forwardRef, useCallback, useMemo, useState } from 'react';
+import { uniq, debounce } from 'lodash-es';
+import { Select } from 'antd';
 
 const idSelector = option => option.id;
 const DEFAULT_NAME_SELECTOR = option => option.name;
@@ -15,9 +15,9 @@ const LazySelectSearch = forwardRef(
       count = 5,
       keySelector = idSelector,
       valueSelector = idSelector,
-      nameSelector = DEFAULT_NAME_SELECTOR
+      nameSelector = DEFAULT_NAME_SELECTOR,
     },
-    ref
+    ref,
   ) => {
     const [filteredOptions, setFilteredOptions] = useState([]);
     const onSearch = useCallback(
@@ -26,11 +26,11 @@ const LazySelectSearch = forwardRef(
           allOptions.filter(option =>
             nameSelector(option)
               .toLowerCase()
-              .includes(inputValue.toLocaleLowerCase())
-          )
+              .includes(inputValue.toLocaleLowerCase()),
+          ),
         );
       }, 300),
-      [allOptions]
+      [allOptions],
     );
 
     const onBlur = useCallback(() => {
@@ -42,12 +42,12 @@ const LazySelectSearch = forwardRef(
         setFilteredOptions([]);
         onChange(newValue);
       },
-      [onChange]
+      [onChange],
     );
 
     const mappedValues = useMemo(
       () => value.map(v => allOptions.find(p => valueSelector(p) === v)),
-      [allOptions, value, valueSelector]
+      [allOptions, value, valueSelector],
     );
 
     const options = useMemo(
@@ -55,14 +55,14 @@ const LazySelectSearch = forwardRef(
         filteredOptions.length
           ? filteredOptions.slice(0, count)
           : uniq([...allOptions.slice(0, count), ...mappedValues]),
-      [allOptions, count, filteredOptions, mappedValues]
+      [allOptions, count, filteredOptions, mappedValues],
     );
     const hidedOptionsCount = useMemo(
       () =>
         filteredOptions.length
           ? filteredOptions.length - count
           : allOptions.length - options.length,
-      [allOptions, count, filteredOptions, options.length]
+      [allOptions, count, filteredOptions, options.length],
     );
 
     return (
@@ -95,7 +95,7 @@ const LazySelectSearch = forwardRef(
         )}
       </Select>
     );
-  }
+  },
 );
 
-export { LazySelectSearch };
+export default LazySelectSearch;

@@ -4,5 +4,6 @@ import { reducer } from './ducks';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// export const store = createStore(reducer, applyMiddleware(thunk));
-export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+
+export default store;

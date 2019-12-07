@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Route, Link, Redirect, Switch, useLocation } from "react-router-dom";
-import { Layout, Menu, Icon } from "antd";
-import { loadEvents } from "../ducks";
-import { DataViewPage } from "./DataViewPage";
-import { DataEditorPage } from "./DataEditorPage";
-import { editorDataPage, viewDataPage } from "./routes";
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Link, Redirect, Switch, useLocation } from 'react-router-dom';
+import { Layout, Menu, Icon } from 'antd';
+import { loadEvents } from '../ducks';
+import DataViewPage from './DataViewPage';
+import DataEditorPage from './DataEditorPage';
+import { editorDataPage, viewDataPage } from './routes';
 
 const ROUTES = [viewDataPage, editorDataPage];
 
@@ -18,7 +18,7 @@ const App = () => {
 
   const selectedMenuKeys = useMemo(
     () => [ROUTES.find(route => route === pathname)],
-    [pathname]
+    [pathname],
   );
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Layout style={{ minHeight: "100vh" }} hasSider>
+    <Layout style={{ minHeight: '100vh' }} hasSider>
       <Layout.Sider
         theme="dark"
         collapsible
@@ -34,10 +34,10 @@ const App = () => {
         collapsed={collapsed}
         onCollapse={setCollapsed}
         style={{
-          overflow: "auto",
-          height: "100vh",
-          position: "fixed",
-          left: 0
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
         }}
       >
         <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
@@ -58,7 +58,7 @@ const App = () => {
       <Layout
         style={{
           marginLeft: collapsed ? 80 : FULL_SIDER_WIDTH,
-          transition: "margin 0.2s"
+          transition: 'margin 0.2s',
         }}
       >
         <Layout.Content>

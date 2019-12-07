@@ -1,1 +1,1 @@
-export { DataViewPage } from './DataViewPage';
+export { default } from './DataViewPage';

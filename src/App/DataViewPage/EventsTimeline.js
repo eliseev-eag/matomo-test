@@ -1,29 +1,29 @@
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { flow } from "lodash-es";
-import Timeline from "react-visjs-timeline";
-import { changeTimelineRange } from "../../ducks";
-import { eventsSelector, eventTypesSelector } from "../../selectors";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { flow } from 'lodash-es';
+import Timeline from 'react-visjs-timeline';
+import { changeTimelineRange } from '../../ducks';
+import { eventsSelector, eventTypesSelector } from '../../selectors';
 
 const TIMELINE_OPTIONS = {
-  align: "center",
-  minHeight: "400px",
-  maxHeight: "400px",
-  type: "range",
+  align: 'center',
+  minHeight: '400px',
+  maxHeight: '400px',
+  type: 'range',
   tooltip: {
     followMouse: true,
-    overflowMethod: "cap"
+    overflowMethod: 'cap',
   },
   snap: null,
-  orientation: { axis: "both" },
-  zoomMin: 1000 * 60 * 60 * 24 * 5
+  orientation: { axis: 'both' },
+  zoomMin: 1000 * 60 * 60 * 24 * 5,
 };
 
 const eventTypesToGroupSelector = flow(eventTypesSelector, eventTypes =>
   eventTypes.map(eventType => ({
     id: eventType.id,
-    content: eventType.type
-  }))
+    content: eventType.type,
+  })),
 );
 
 const eventsToTimelineItemsSelector = flow(eventsSelector, events =>
@@ -34,8 +34,10 @@ const eventsToTimelineItemsSelector = flow(eventsSelector, events =>
     duration: event.endDate - event.startDate,
     group: event.type,
     type:
-      event.endDate - event.startDate <= 1000 * 60 * 60 * 24 ? "point" : "range"
-  }))
+      event.endDate - event.startDate <= 1000 * 60 * 60 * 24
+        ? 'point'
+        : 'range',
+  })),
 );
 
 const EventsTimeline = () => {
@@ -47,7 +49,7 @@ const EventsTimeline = () => {
     ({ start, end }) => {
       dispatch(changeTimelineRange({ start, end }));
     },
-    [dispatch]
+    [dispatch],
   );
 
   return (
@@ -64,4 +66,4 @@ const EventsTimeline = () => {
   );
 };
 
-export { EventsTimeline as Timeline };
+export default EventsTimeline;

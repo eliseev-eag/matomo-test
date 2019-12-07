@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Layout, PageHeader } from "antd";
-import { DownloadButton } from "./DownloadButton";
-import { EditorTable } from "./EditorTable";
-import { EventForm } from "./EventForm";
-import { editEvent, deleteEvent } from "../../ducks";
-import moment from "moment";
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Layout, PageHeader } from 'antd';
+import moment from 'moment';
+import DownloadButton from './DownloadButton';
+import EditorTable from './EditorTable';
+import EventForm from './EventForm';
+import { editEvent, deleteEvent } from '../../ducks';
 
 const DataEditorPage = () => {
   const dispatch = useDispatch();
@@ -18,9 +18,9 @@ const DataEditorPage = () => {
         endDate: moment(value.endDate),
         type: value.type.id,
         toponyms: value.toponyms.map(toponym => toponym.id),
-        persons: value.persons.map(person => person.id)
+        persons: value.persons.map(person => person.id),
       }),
-    []
+    [],
   );
 
   const closeForm = useCallback(() => setEvent(null), []);
@@ -31,19 +31,19 @@ const DataEditorPage = () => {
         editEvent({
           ...value,
           endDate: value.endDate.toDate(),
-          startDate: value.startDate.toDate()
-        })
+          startDate: value.startDate.toDate(),
+        }),
       );
       closeForm();
     },
-    [dispatch, closeForm]
+    [dispatch, closeForm],
   );
 
   const onDelete = useCallback(
     value => {
       dispatch(deleteEvent(value));
     },
-    [dispatch]
+    [dispatch],
   );
 
   return (
@@ -66,4 +66,4 @@ const DataEditorPage = () => {
   );
 };
 
-export { DataEditorPage };
+export default DataEditorPage;

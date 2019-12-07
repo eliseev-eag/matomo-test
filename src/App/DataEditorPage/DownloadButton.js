@@ -1,14 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Button, Icon } from "antd";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Button, Icon } from 'antd';
 import {
   eventTypesSelector,
   eventsSelector,
   personsSelector,
-  toponymsSelector
-} from "../../selectors";
+  toponymsSelector,
+} from '../../selectors';
 
-const DownloadButton = ({ filename = "events.json" }) => {
+const DownloadButton = ({ filename = 'events.json' }) => {
   const events = useSelector(eventsSelector);
   const eventTypes = useSelector(eventTypesSelector);
   const persons = useSelector(personsSelector);
@@ -18,14 +18,14 @@ const DownloadButton = ({ filename = "events.json" }) => {
     events,
     eventTypes,
     toponyms,
-    persons
+    persons,
   });
 
   return (
     <Button
       download={filename}
       href={URL.createObjectURL(
-        new Blob([content], { type: "application/json" })
+        new Blob([content], { type: 'application/json' }),
       )}
     >
       <Icon type="download" />
@@ -34,4 +34,4 @@ const DownloadButton = ({ filename = "events.json" }) => {
   );
 };
 
-export { DownloadButton };
+export default DownloadButton;

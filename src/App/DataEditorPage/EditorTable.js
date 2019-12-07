@@ -1,18 +1,18 @@
-import React, { useCallback, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { Button, Popconfirm, Table } from "antd";
+import React, { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { Button, Popconfirm, Table } from 'antd';
 import {
   eventTypesSelector,
   eventsSelector,
   personsSelector,
-  toponymsSelector
-} from "../../selectors";
+  toponymsSelector,
+} from '../../selectors';
 
 const dateFormatter = date =>
-  date.toLocaleString("ru", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric"
+  date.toLocaleString('ru', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
   });
 const typeFormatter = type => type.type;
 const personsFormatter = persons =>
@@ -39,23 +39,23 @@ const EditorTable = ({ onSelect, deleteRow }) => {
         type: eventTypes.find(type => type.id === event.type),
         persons: event.persons
           ? event.persons.map(personId =>
-              persons.find(person => person.id === personId)
+              persons.find(person => person.id === personId),
             )
           : [],
         toponyms: event.toponyms
           ? event.toponyms.map(toponymId =>
-              toponyms.find(toponym => toponym.id === toponymId)
+              toponyms.find(toponym => toponym.id === toponymId),
             )
-          : []
+          : [],
       })),
-    [eventTypes, persons, toponyms, events]
+    [eventTypes, persons, toponyms, events],
   );
 
   const onRow = useCallback(
     record => ({
-      onClick: onSelect ? () => onSelect(record) : undefined
+      onClick: onSelect ? () => onSelect(record) : undefined,
     }),
-    [onSelect]
+    [onSelect],
   );
 
   const renderDeleteButton = (_, record) => (
@@ -109,9 +109,9 @@ const EditorTable = ({ onSelect, deleteRow }) => {
         width="10%"
         filters={eventTypes.map(eventType => ({
           value: eventType.id,
-          text: eventType.type
+          text: eventType.type,
         }))}
-        onFilter={(value, record) => record.type.id == value}
+        onFilter={(value, record) => record.type.id === value}
         render={typeFormatter}
       />
       <Table.Column
@@ -131,4 +131,4 @@ const EditorTable = ({ onSelect, deleteRow }) => {
   );
 };
 
-export { EditorTable };
+export default EditorTable;
