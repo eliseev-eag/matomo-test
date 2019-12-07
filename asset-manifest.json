@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.2d9e4167.chunk.css",
-    "main.js": "/static/js/main.b0171ce2.chunk.js",
-    "main.js.map": "/static/js/main.b0171ce2.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.f54d3f69.js",
-    "runtime-main.js.map": "/static/js/runtime-main.f54d3f69.js.map",
-    "static/css/2.f2799c73.chunk.css": "/static/css/2.f2799c73.chunk.css",
-    "static/js/2.fb297bd8.chunk.js": "/static/js/2.fb297bd8.chunk.js",
-    "static/js/2.fb297bd8.chunk.js.map": "/static/js/2.fb297bd8.chunk.js.map",
-    "static/js/3.d6698ec1.chunk.js": "/static/js/3.d6698ec1.chunk.js",
-    "static/js/3.d6698ec1.chunk.js.map": "/static/js/3.d6698ec1.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.bc06ea7c1d09f18b6dd60fa5c52d6f5b.js": "/precache-manifest.bc06ea7c1d09f18b6dd60fa5c52d6f5b.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.f2799c73.chunk.css.map": "/static/css/2.f2799c73.chunk.css.map",
-    "static/css/main.2d9e4167.chunk.css.map": "/static/css/main.2d9e4167.chunk.css.map"
+    "main.css": "/Viz-react/static/css/main.2d9e4167.chunk.css",
+    "main.js": "/Viz-react/static/js/main.15bd8098.chunk.js",
+    "main.js.map": "/Viz-react/static/js/main.15bd8098.chunk.js.map",
+    "runtime-main.js": "/Viz-react/static/js/runtime-main.2d23ded0.js",
+    "runtime-main.js.map": "/Viz-react/static/js/runtime-main.2d23ded0.js.map",
+    "static/css/2.f2799c73.chunk.css": "/Viz-react/static/css/2.f2799c73.chunk.css",
+    "static/js/2.b8836d1b.chunk.js": "/Viz-react/static/js/2.b8836d1b.chunk.js",
+    "static/js/2.b8836d1b.chunk.js.map": "/Viz-react/static/js/2.b8836d1b.chunk.js.map",
+    "static/js/3.120cd6fc.chunk.js": "/Viz-react/static/js/3.120cd6fc.chunk.js",
+    "static/js/3.120cd6fc.chunk.js.map": "/Viz-react/static/js/3.120cd6fc.chunk.js.map",
+    "index.html": "/Viz-react/index.html",
+    "precache-manifest.a7d8ca7845b00367d3e7ff965b09d407.js": "/Viz-react/precache-manifest.a7d8ca7845b00367d3e7ff965b09d407.js",
+    "service-worker.js": "/Viz-react/service-worker.js",
+    "static/css/2.f2799c73.chunk.css.map": "/Viz-react/static/css/2.f2799c73.chunk.css.map",
+    "static/css/main.2d9e4167.chunk.css.map": "/Viz-react/static/css/main.2d9e4167.chunk.css.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.f54d3f69.js",
+    "static/js/runtime-main.2d23ded0.js",
     "static/css/2.f2799c73.chunk.css",
-    "static/js/2.fb297bd8.chunk.js",
+    "static/js/2.b8836d1b.chunk.js",
     "static/css/main.2d9e4167.chunk.css",
-    "static/js/main.b0171ce2.chunk.js"
+    "static/js/main.15bd8098.chunk.js"
   ]
 }
