@@ -1,7 +1,24 @@
 {
-  "name": "practise",
+  "name": "viz-react",
   "version": "0.1.0",
+  "homepage": "https://eliseev-eag.github.io/Viz-react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliseev-eag/Viz-react.git"
+  },
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "dependencies": {
     "antd": "^3.25.2",
     "lodash-es": "^4.17.15",
@@ -17,18 +34,6 @@
     "redux-thunk": "^2.3.0",
     "vis": "^4.21.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.7.0",
