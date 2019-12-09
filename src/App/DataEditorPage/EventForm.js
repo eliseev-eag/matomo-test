@@ -58,9 +58,10 @@ const EventForm = ({
 
   return (
     <Drawer
+      title="Редактирование события"
       visible={visible}
       onClose={onClose}
-      placement="left"
+      placement="right"
       width={450}
       closable
     >
@@ -70,7 +71,7 @@ const EventForm = ({
             {getFieldDecorator(
               'name',
               rules.name,
-            )(<Input placeholder="Название" />)}
+            )(<Input.TextArea rows={4} placeholder="Название" />)}
           </Form.Item>
         </Row>
         <Row>
