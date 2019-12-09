@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Viz-react/precache-manifest.8d4318553b0e0f49b727ec755f07868a.js"
+  "/Viz-react/precache-manifest.6514f1146bfc0b26fc65b1d0b5bb6e12.js"
 );
 
 self.addEventListener('message', (event) => {
