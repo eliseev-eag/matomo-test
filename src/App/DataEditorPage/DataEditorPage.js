@@ -5,7 +5,7 @@ import moment from 'moment';
 import DownloadButton from './DownloadButton';
 import EditorTable from './EditorTable';
 import EventForm from './EventForm';
-import { editEvent, deleteEvent } from '../../ducks';
+import { deleteEvent, editEvent } from '../../ducks';
 
 const DataEditorPage = () => {
   const dispatch = useDispatch();

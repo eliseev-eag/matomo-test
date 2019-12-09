@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Icon } from 'antd';
 import {
-  eventTypesSelector,
   eventsSelector,
+  eventTypesSelector,
   personsSelector,
   toponymsSelector,
 } from '../../selectors';

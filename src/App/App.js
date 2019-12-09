@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Link, Redirect, Switch, useLocation } from 'react-router-dom';
-import { Layout, Menu, Icon } from 'antd';
+import { Link, Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Icon, Layout, Menu } from 'antd';
 import { loadEvents } from '../ducks';
 import DataViewPage from './DataViewPage';
 import DataEditorPage from './DataEditorPage';

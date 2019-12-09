@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { pick } from 'lodash-es';
-import { Form, Input, Row, DatePicker, Select, Drawer, Button } from 'antd';
+import { Button, DatePicker, Drawer, Form, Input, Row, Select } from 'antd';
 import LazySelectSearch from '../../components/LazySelectSearch';
 import {
   eventTypesSelector,
-  toponymsSelector,
   personsSelector,
+  toponymsSelector,
 } from '../../selectors';
 
 const dateFormat = 'DD.MM.YYYY';

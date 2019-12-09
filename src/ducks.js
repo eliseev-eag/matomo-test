@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { createAction, handleActions, combineActions } from 'redux-actions';
+import { combineActions, createAction, handleActions } from 'redux-actions';
 import { orderBy } from 'lodash-es';
 
 const loadEventsRequest = createAction('loadEventsRequest');

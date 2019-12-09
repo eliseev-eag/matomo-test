@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useMemo, useState } from 'react';
-import { uniq, debounce } from 'lodash-es';
+import { debounce, uniq } from 'lodash-es';
 import { Select } from 'antd';
 
 const idSelector = option => option.id;

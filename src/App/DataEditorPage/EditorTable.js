@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Popconfirm, Table } from 'antd';
 import {
-  eventTypesSelector,
   eventsSelector,
+  eventTypesSelector,
   personsSelector,
   toponymsSelector,
 } from '../../selectors';
