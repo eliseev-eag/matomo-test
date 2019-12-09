@@ -4,12 +4,13 @@ import { Select } from 'antd';
 
 const idSelector = option => option.id;
 const DEFAULT_NAME_SELECTOR = option => option.name;
+const DEFAULT_VALUE = [];
 
 const LazySelectSearch = forwardRef(
   (
     {
       allOptions,
-      value,
+      value = DEFAULT_VALUE,
       onChange,
       placeholder,
       count = 5,

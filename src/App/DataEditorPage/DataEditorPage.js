@@ -5,10 +5,11 @@ import moment from 'moment';
 import DownloadButton from './DownloadButton';
 import EditorTable from './EditorTable';
 import EventForm from './EventForm';
-import { deleteEvent, editEvent } from '../../ducks';
+import { addEvent, deleteEvent, editEvent } from '../../ducks';
 
 const DataEditorPage = () => {
   const dispatch = useDispatch();
+  const [isAddFormVisible, setAddFormVisible] = useState(false);
   const [event, setEvent] = useState(null);
   const onSelect = useCallback(
     value =>
@@ -23,9 +24,15 @@ const DataEditorPage = () => {
     [],
   );
 
-  const closeForm = useCallback(() => setEvent(null), []);
+  const closeForm = useCallback(() => {
+    if (isAddFormVisible) {
+      setAddFormVisible(false);
+    } else {
+      setEvent(null);
+    }
+  }, [isAddFormVisible]);
 
-  const onSave = useCallback(
+  const changeEvent = useCallback(
     value => {
       dispatch(
         editEvent({
@@ -46,6 +53,24 @@ const DataEditorPage = () => {
     [dispatch],
   );
 
+  const createEvent = useCallback(
+    value => {
+      dispatch(
+        addEvent({
+          ...value,
+          endDate: value.endDate.toDate(),
+          startDate: value.startDate.toDate(),
+        }),
+      );
+      closeForm();
+    },
+    [closeForm, dispatch],
+  );
+
+  const showAddForm = useCallback(() => {
+    setAddFormVisible(true);
+  }, []);
+
   return (
     <Layout>
       <PageHeader
@@ -54,12 +79,16 @@ const DataEditorPage = () => {
         extra={<DownloadButton />}
       />
       <Layout.Content>
-        <EditorTable onSelect={onSelect} deleteRow={onDelete} />
+        <EditorTable
+          onAdd={showAddForm}
+          onSelect={onSelect}
+          deleteRow={onDelete}
+        />
         <EventForm
           event={event}
-          visible={event !== null}
+          visible={event !== null || isAddFormVisible}
           onClose={closeForm}
-          onSubmit={onSave}
+          onSubmit={isAddFormVisible ? createEvent : changeEvent}
         />
       </Layout.Content>
     </Layout>

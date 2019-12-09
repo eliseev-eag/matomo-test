@@ -26,7 +26,7 @@ const startDateSorter = (a, b) => a.startDate - b.startDate;
 
 const endDateSorter = (a, b) => a.endDate - b.endDate;
 
-const EditorTable = ({ onSelect, deleteRow }) => {
+const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
   const eventTypes = useSelector(eventTypesSelector);
   const persons = useSelector(personsSelector);
   const toponyms = useSelector(toponymsSelector);
@@ -82,11 +82,21 @@ const EditorTable = ({ onSelect, deleteRow }) => {
     </Popconfirm>
   );
 
+  const renderTitle = useCallback(
+    () => (
+      <Button type="primary" onClick={onAdd}>
+        Добавить
+      </Button>
+    ),
+    [onAdd],
+  );
+
   return (
     <Table
       dataSource={eventsWithNestedData}
       rowKey={event => event.id}
       onRow={onRow}
+      title={renderTitle}
     >
       <Table.Column title="Название" dataIndex="name" width="35%" />
       <Table.Column

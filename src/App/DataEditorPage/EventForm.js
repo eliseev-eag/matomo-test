@@ -47,13 +47,15 @@ const EventForm = ({
     e.preventDefault();
     validateFields((err, values) => {
       if (!err) {
-        onSubmit({ id: event.id, ...values });
+        onSubmit({ id: event ? event.id : null, ...values });
       }
     });
   };
 
   useEffect(() => {
-    setFieldsValue(pick(event, Object.keys(rules)));
+    if (event) {
+      setFieldsValue(pick(event, Object.keys(rules)));
+    }
   }, [event, setFieldsValue]);
 
   return (
@@ -64,6 +66,7 @@ const EventForm = ({
       placement="right"
       width={450}
       closable
+      destroyOnClose
     >
       <Form layout="vertical">
         <Row>

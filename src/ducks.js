@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { combineActions, createAction, handleActions } from 'redux-actions';
-import { orderBy } from 'lodash-es';
+import { orderBy, uniqueId } from 'lodash-es';
 
 const loadEventsRequest = createAction('loadEventsRequest');
 const loadEventsSuccess = createAction('loadEventsSuccess');
@@ -20,6 +20,7 @@ export const loadEvents = () => async dispatch => {
 
 export const editEvent = createAction('editEvent');
 export const deleteEvent = createAction('deleteEvent');
+export const addEvent = createAction('addEvent');
 
 const timelineDefaultState = {
   start: new Date(100, 0, 0),
@@ -70,6 +71,10 @@ export const reducer = combineReducers({
         ),
       [deleteEvent]: (state, data) =>
         state.filter(event => event.id !== data.payload.id),
+      [addEvent]: (state, data) => [
+        ...state,
+        { ...data.payload, id: uniqueId() },
+      ],
     },
     [],
   ),
