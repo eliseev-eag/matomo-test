@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Layout, PageHeader } from 'antd';
 import moment from 'moment';
+import { addEvent, deleteEvent, editEvent } from '../../ducks';
 import DownloadButton from './DownloadButton';
 import EditorTable from './EditorTable';
 import EventForm from './EventForm';
-import { addEvent, deleteEvent, editEvent } from '../../ducks';
 
 const DataEditorPage = () => {
   const dispatch = useDispatch();

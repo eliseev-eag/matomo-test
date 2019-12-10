@@ -1,5 +1,10 @@
 {
-  "extends": ["react-app", "airbnb", "plugin:prettier/recommended"],
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended"
+  ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
@@ -8,7 +13,23 @@
     "react/prop-types": "off",
     "sort-imports": [
       "error",
-      { "ignoreCase": true, "ignoreDeclarationSort": true }
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
     ]
   }
 }
