@@ -38,6 +38,7 @@ const EventForm = ({
   form: { getFieldDecorator, setFieldsValue, validateFields },
   visible,
   onClose,
+  title,
 }) => {
   const eventTypes = useSelector(eventTypesSelector);
   const toponyms = useSelector(toponymsSelector);
@@ -60,7 +61,7 @@ const EventForm = ({
 
   return (
     <Drawer
-      title="Редактирование события"
+      title={title}
       visible={visible}
       onClose={onClose}
       placement="right"

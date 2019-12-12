@@ -89,6 +89,9 @@ const DataEditorPage = () => {
           visible={event !== null || isAddFormVisible}
           onClose={closeForm}
           onSubmit={isAddFormVisible ? createEvent : changeEvent}
+          title={
+            isAddFormVisible ? 'Добавление события' : 'Редактирование события'
+          }
         />
       </Layout.Content>
     </Layout>
