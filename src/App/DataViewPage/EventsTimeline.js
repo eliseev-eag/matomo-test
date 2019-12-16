@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { flow } from 'lodash-es';
 import Timeline from 'react-visjs-timeline';
-import { changeTimelineRange } from '../../ducks';
 import { eventsSelector, eventTypesSelector } from '../../selectors';
 
 const TIMELINE_OPTIONS = {
@@ -41,26 +40,13 @@ const eventsToTimelineItemsSelector = flow(eventsSelector, events =>
 );
 
 const EventsTimeline = () => {
-  const dispatch = useDispatch();
   const items = useSelector(eventsToTimelineItemsSelector);
   const groups = useSelector(eventTypesToGroupSelector);
-
-  const onRangeChangedHandler = useCallback(
-    ({ start, end }) => {
-      dispatch(changeTimelineRange({ start, end }));
-    },
-    [dispatch],
-  );
 
   return (
     <div>
       {items && items.length > 0 && (
-        <Timeline
-          options={TIMELINE_OPTIONS}
-          items={items}
-          groups={groups}
-          rangechangedHandler={onRangeChangedHandler}
-        />
+        <Timeline options={TIMELINE_OPTIONS} items={items} groups={groups} />
       )}
     </div>
   );

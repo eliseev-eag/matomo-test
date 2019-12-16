@@ -6,8 +6,6 @@ const loadEventsRequest = createAction('loadEventsRequest');
 const loadEventsSuccess = createAction('loadEventsSuccess');
 const loadEventsFailure = createAction('loadEventsFailure');
 
-export const changeTimelineRange = createAction('changeTimelineRange');
-
 export const loadEvents = () => async dispatch => {
   dispatch(loadEventsRequest());
   try {
@@ -21,11 +19,6 @@ export const loadEvents = () => async dispatch => {
 export const editEvent = createAction('editEvent');
 export const deleteEvent = createAction('deleteEvent');
 export const addEvent = createAction('addEvent');
-
-const timelineDefaultState = {
-  start: new Date(100, 0, 0),
-  end: new Date(),
-};
 
 export const reducer = combineReducers({
   requestWorking: handleActions(
@@ -83,14 +76,5 @@ export const reducer = combineReducers({
       [loadEventsFailure]: () => true,
     },
     false,
-  ),
-  timeline: handleActions(
-    {
-      [changeTimelineRange]: (state, { payload: { start, end } }) => ({
-        start,
-        end,
-      }),
-    },
-    timelineDefaultState,
   ),
 });
