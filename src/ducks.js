@@ -20,13 +20,20 @@ export const editEvent = createAction('editEvent');
 export const deleteEvent = createAction('deleteEvent');
 export const addEvent = createAction('addEvent');
 
-export const reducer = combineReducers({
-  requestWorking: handleActions(
+export default combineReducers({
+  isFetching: handleActions(
     {
       [loadEventsRequest]: () => true,
       [combineActions(loadEventsSuccess, loadEventsFailure)]: () => false,
     },
     false,
+  ),
+  error: handleActions(
+    {
+      [loadEventsRequest]: () => null,
+      [loadEventsFailure]: (state, data) => data,
+    },
+    null,
   ),
   eventTypes: handleActions(
     {
@@ -70,11 +77,5 @@ export const reducer = combineReducers({
       ],
     },
     [],
-  ),
-  errorOccured: handleActions(
-    {
-      [loadEventsFailure]: () => true,
-    },
-    false,
   ),
 });
