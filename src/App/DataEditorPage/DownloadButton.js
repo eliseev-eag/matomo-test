@@ -6,7 +6,7 @@ import {
   eventTypesSelector,
   personsSelector,
   toponymsSelector,
-} from '../../selectors';
+} from 'selectors';
 
 const DownloadButton = ({ filename = 'events.json' }) => {
   const events = useSelector(eventsSelector);

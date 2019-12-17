@@ -7,7 +7,7 @@ import {
   eventTypesSelector,
   personsSelector,
   toponymsSelector,
-} from '../../selectors';
+} from 'selectors';
 
 const dateFormatter = date =>
   date.toLocaleString('ru', {

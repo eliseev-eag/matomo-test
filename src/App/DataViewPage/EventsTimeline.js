@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { flow } from 'lodash-es';
 import Timeline from 'react-visjs-timeline';
-import { eventsSelector, eventTypesSelector } from '../../selectors';
+import { eventsSelector, eventTypesSelector } from 'selectors';
 
 const TIMELINE_OPTIONS = {
   align: 'center',

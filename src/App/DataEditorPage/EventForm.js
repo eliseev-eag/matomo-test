@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { pick } from 'lodash-es';
 import { Button, DatePicker, Drawer, Form, Input, Row, Select } from 'antd';
-import LazySelectSearch from '../../components/LazySelectSearch';
+import LazySelectSearch from 'components/LazySelectSearch';
 import {
   eventTypesSelector,
   personsSelector,
   toponymsSelector,
-} from '../../selectors';
+} from 'selectors';
 
 const dateFormat = 'DD.MM.YYYY';
 
@@ -69,7 +69,7 @@ const EventForm = ({
       closable
       destroyOnClose
     >
-      <Form layout="vertical">
+      <Form layout="vertical" onSubmit>
         <Row>
           <Form.Item label="Название">
             {getFieldDecorator(

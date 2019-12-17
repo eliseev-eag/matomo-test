@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Alert, Layout, PageHeader, Spin } from 'antd';
-import { errorSelector, isFetchingSelector } from '../../selectors';
+import { errorSelector, isFetchingSelector } from 'selectors';
 import EventsTimeline from './EventsTimeline';
 
 const DataViewPage = () => {
