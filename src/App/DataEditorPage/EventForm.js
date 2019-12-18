@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { pick } from 'lodash-es';
+import { Field, Form as FinalForm } from 'react-final-form';
 import { Button, DatePicker, Drawer, Form, Input, Row, Select } from 'antd';
+import { identity } from 'lodash-es';
 import LazySelectSearch from 'components/LazySelectSearch';
 import {
   eventTypesSelector,
@@ -11,53 +12,10 @@ import {
 
 const dateFormat = 'DD.MM.YYYY';
 
-const rules = {
-  name: {
-    rules: [{ required: true }],
-  },
-  startDate: {
-    rules: [{ type: 'object', required: true, message: 'Please select time!' }],
-  },
-  endDate: {
-    rules: [{ type: 'object', required: true, message: 'Please select time!' }],
-  },
-  type: {
-    rules: [{ required: true }],
-  },
-  persons: {
-    rules: [{ type: 'array' }],
-  },
-  toponyms: {
-    rules: [{ type: 'array' }],
-  },
-};
-
-const EventForm = ({
-  event,
-  onSubmit,
-  form: { getFieldDecorator, setFieldsValue, validateFields },
-  visible,
-  onClose,
-  title,
-}) => {
+const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
   const eventTypes = useSelector(eventTypesSelector);
   const toponyms = useSelector(toponymsSelector);
   const persons = useSelector(personsSelector);
-
-  const onSubmitHandler = e => {
-    e.preventDefault();
-    validateFields((err, values) => {
-      if (!err) {
-        onSubmit({ id: event ? event.id : null, ...values });
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (event) {
-      setFieldsValue(pick(event, Object.keys(rules)));
-    }
-  }, [event, setFieldsValue]);
 
   return (
     <Drawer
@@ -69,95 +27,143 @@ const EventForm = ({
       closable
       destroyOnClose
     >
-      <Form layout="vertical" onSubmit>
-        <Row>
-          <Form.Item label="Название">
-            {getFieldDecorator(
-              'name',
-              rules.name,
-            )(<Input.TextArea rows={4} placeholder="Название" />)}
-          </Form.Item>
-        </Row>
-        <Row>
-          <Form.Item label="Дата начала">
-            {getFieldDecorator(
-              'startDate',
-              rules.startDate,
-            )(<DatePicker format={dateFormat} />)}
-          </Form.Item>
-        </Row>
-        <Row>
-          <Form.Item label="Дата окончания">
-            {getFieldDecorator(
-              'endDate',
-              rules.endDate,
-            )(<DatePicker format={dateFormat} />)}
-          </Form.Item>
-        </Row>
-        <Row>
-          <Form.Item label="Тип">
-            {getFieldDecorator(
-              'type',
-              rules.type,
-            )(
-              <Select placeholder="Выберите тип события">
-                {eventTypes.map(eventType => (
-                  <Select.Option key={eventType.id} value={eventType.id}>
-                    {eventType.type}
-                  </Select.Option>
-                ))}
-              </Select>,
-            )}
-          </Form.Item>
-        </Row>
-        <Row>
-          <Form.Item label="Топонимы">
-            {getFieldDecorator(
-              'toponyms',
-              rules.toponyms,
-            )(
-              <LazySelectSearch
-                allOptions={toponyms}
-                placeholder="Выберите топонимы"
-              />,
-            )}
-          </Form.Item>
-        </Row>
-        <Row>
-          <Form.Item label="Действующие лица">
-            {getFieldDecorator(
-              'persons',
-              rules.persons,
-            )(
-              <LazySelectSearch
-                allOptions={persons}
-                nameSelector={p => `${p.surname} ${p.name} ${p.patron}`}
-                placeholder="Выберите действующих лиц"
-              />,
-            )}
-          </Form.Item>
-        </Row>
-        <div
-          style={{
-            position: 'absolute',
-            right: 0,
-            bottom: 0,
-            width: '100%',
-            borderTop: '1px solid #e9e9e9',
-            padding: '10px 16px',
-            background: '#fff',
-            textAlign: 'right',
-          }}
-        >
-          <Button onClick={onSubmitHandler} type="primary">
-            Сохранить
-          </Button>
-        </div>
-      </Form>
+      <FinalForm
+        initialValues={event}
+        onSubmit={values => {
+          onSubmit({ id: event ? event.id : null, ...values });
+        }}
+      >
+        {({ handleSubmit }) => (
+          <Form layout="vertical" onSubmit={handleSubmit}>
+            <Row>
+              <Field name="name" allowNull format={identity} parse={identity}>
+                {({ input: { value, onChange } }) => (
+                  <Form.Item label="Название">
+                    <Input.TextArea
+                      rows={4}
+                      placeholder="Название"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </Form.Item>
+                )}
+              </Field>
+            </Row>
+            <Row>
+              <Field
+                name="startDate"
+                allowNull
+                format={identity}
+                parse={identity}
+              >
+                {({ input: { value, onChange } }) => (
+                  <Form.Item label="Дата начала">
+                    <DatePicker
+                      format={dateFormat}
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </Form.Item>
+                )}
+              </Field>
+            </Row>
+            <Row>
+              <Field
+                name="endDate"
+                allowNull
+                format={identity}
+                parse={identity}
+              >
+                {({ input: { value, onChange } }) => (
+                  <Form.Item label="Дата окончания">
+                    <DatePicker
+                      format={dateFormat}
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </Form.Item>
+                )}
+              </Field>
+            </Row>
+            <Row>
+              <Field name="type" allowNull format={identity} parse={identity}>
+                {({ input: { value, onChange } }) => (
+                  <Form.Item label="Тип">
+                    <Select
+                      placeholder="Выберите тип события"
+                      value={value}
+                      onChange={onChange}
+                    >
+                      {eventTypes.map(eventType => (
+                        <Select.Option key={eventType.id} value={eventType.id}>
+                          {eventType.type}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                )}
+              </Field>
+            </Row>
+            <Row>
+              <Field
+                name="toponyms"
+                allowNull
+                format={identity}
+                parse={identity}
+              >
+                {({ input: { value, onChange } }) => (
+                  <Form.Item label="Топонимы">
+                    <LazySelectSearch
+                      allOptions={toponyms}
+                      placeholder="Выберите топонимы"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </Form.Item>
+                )}
+              </Field>
+            </Row>
+            <Row>
+              <Field
+                name="persons"
+                allowNull
+                format={identity}
+                parse={identity}
+              >
+                {({ input: { value, onChange } }) => (
+                  <Form.Item label="Действующие лица">
+                    <LazySelectSearch
+                      allOptions={persons}
+                      nameSelector={p => `${p.surname} ${p.name} ${p.patron}`}
+                      placeholder="Выберите действующих лиц"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </Form.Item>
+                )}
+              </Field>
+            </Row>
+            <div
+              style={{
+                position: 'absolute',
+                right: 0,
+                bottom: 0,
+                width: '100%',
+                borderTop: '1px solid #e9e9e9',
+                padding: '10px 16px',
+                background: '#fff',
+                textAlign: 'right',
+              }}
+            >
+              <Button htmlType="submit" type="primary">
+                Сохранить
+              </Button>
+            </div>
+          </Form>
+        )}
+      </FinalForm>
     </Drawer>
   );
 };
 
-const WrappedEventForm = Form.create()(EventForm);
-
-export default WrappedEventForm;
+export default EventForm;
