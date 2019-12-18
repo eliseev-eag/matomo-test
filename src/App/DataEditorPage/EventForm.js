@@ -1,9 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Field, Form as FinalForm } from 'react-final-form';
-import { Button, DatePicker, Drawer, Form, Input, Row, Select } from 'antd';
-import { identity } from 'lodash-es';
-import LazySelectSearch from 'components/LazySelectSearch';
+import { Form as FinalForm } from 'react-final-form';
+import { Button, Drawer, Form, Row } from 'antd';
+import { DateBox, LazySelectSearch, SelectBox, TextArea } from 'components';
 import {
   eventTypesSelector,
   personsSelector,
@@ -11,6 +10,8 @@ import {
 } from 'selectors';
 
 const dateFormat = 'DD.MM.YYYY';
+
+const typeNameFactory = it => it.type;
 
 const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
   const eventTypes = useSelector(eventTypesSelector);
@@ -36,112 +37,51 @@ const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
         {({ handleSubmit }) => (
           <Form layout="vertical" onSubmit={handleSubmit}>
             <Row>
-              <Field name="name" allowNull format={identity} parse={identity}>
-                {({ input: { value, onChange } }) => (
-                  <Form.Item label="Название">
-                    <Input.TextArea
-                      rows={4}
-                      placeholder="Название"
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </Form.Item>
-                )}
-              </Field>
+              <TextArea
+                name="name"
+                label="Название"
+                rows={4}
+                placeholder="Название"
+              />
             </Row>
             <Row>
-              <Field
+              <DateBox
                 name="startDate"
-                allowNull
-                format={identity}
-                parse={identity}
-              >
-                {({ input: { value, onChange } }) => (
-                  <Form.Item label="Дата начала">
-                    <DatePicker
-                      format={dateFormat}
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </Form.Item>
-                )}
-              </Field>
+                label="Дата начала"
+                format={dateFormat}
+              />
             </Row>
             <Row>
-              <Field
+              <DateBox
                 name="endDate"
-                allowNull
-                format={identity}
-                parse={identity}
-              >
-                {({ input: { value, onChange } }) => (
-                  <Form.Item label="Дата окончания">
-                    <DatePicker
-                      format={dateFormat}
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </Form.Item>
-                )}
-              </Field>
+                label="Дата окончания"
+                format={dateFormat}
+              />
             </Row>
             <Row>
-              <Field name="type" allowNull format={identity} parse={identity}>
-                {({ input: { value, onChange } }) => (
-                  <Form.Item label="Тип">
-                    <Select
-                      placeholder="Выберите тип события"
-                      value={value}
-                      onChange={onChange}
-                    >
-                      {eventTypes.map(eventType => (
-                        <Select.Option key={eventType.id} value={eventType.id}>
-                          {eventType.type}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                )}
-              </Field>
+              <SelectBox
+                name="type"
+                label="Тип"
+                options={eventTypes}
+                optionNameFactory={typeNameFactory}
+              />
             </Row>
             <Row>
-              <Field
+              <LazySelectSearch
                 name="toponyms"
-                allowNull
-                format={identity}
-                parse={identity}
-              >
-                {({ input: { value, onChange } }) => (
-                  <Form.Item label="Топонимы">
-                    <LazySelectSearch
-                      allOptions={toponyms}
-                      placeholder="Выберите топонимы"
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </Form.Item>
-                )}
-              </Field>
+                label="Топонимы"
+                allOptions={toponyms}
+                placeholder="Выберите топонимы"
+              />
             </Row>
             <Row>
-              <Field
+              <LazySelectSearch
                 name="persons"
-                allowNull
-                format={identity}
-                parse={identity}
-              >
-                {({ input: { value, onChange } }) => (
-                  <Form.Item label="Действующие лица">
-                    <LazySelectSearch
-                      allOptions={persons}
-                      nameSelector={p => `${p.surname} ${p.name} ${p.patron}`}
-                      placeholder="Выберите действующих лиц"
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </Form.Item>
-                )}
-              </Field>
+                label="Действующие лица"
+                allOptions={persons}
+                nameSelector={p => `${p.surname} ${p.name} ${p.patron}`}
+                placeholder="Выберите действующих лиц"
+              />
             </Row>
             <div
               style={{
