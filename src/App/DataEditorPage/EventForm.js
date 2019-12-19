@@ -11,6 +11,8 @@ import {
 
 const typeNameFactory = it => it.type;
 
+const patronNameFactory = it => `${it.surname} ${it.name} ${it.patron}`;
+
 const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
   const eventTypes = useSelector(eventTypesSelector);
   const toponyms = useSelector(toponymsSelector);
@@ -69,7 +71,7 @@ const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
                 name="persons"
                 label="Действующие лица"
                 allOptions={persons}
-                nameSelector={p => `${p.surname} ${p.name} ${p.patron}`}
+                optionNameFactory={patronNameFactory}
                 placeholder="Выберите действующих лиц"
               />
             </Row>

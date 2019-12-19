@@ -1,9 +1,6 @@
 import React from 'react';
 import { Select } from 'antd';
-
-const ID_FACTORY = it => it.id;
-
-const NAME_FACTORY = it => it.name;
+import { ID_FACTORY, NAME_FACTORY } from './constants';
 
 const OPTIONS_DEFAULT_VALUE = [];
 
