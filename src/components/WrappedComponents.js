@@ -9,12 +9,19 @@ import LazySelectSearch from './LazySelectSearch';
 const wrapIntoField = Component => ({
   name,
   label,
+  validate,
   allowNull = true,
   format = identity,
   parse = identity,
   ...otherProps
 }) => (
-  <Field name={name} format={format} parse={parse} allowNull={allowNull}>
+  <Field
+    name={name}
+    format={format}
+    parse={parse}
+    allowNull={allowNull}
+    validate={validate}
+  >
     {({ input: { value, onChange }, meta: { invalid, touched, error } }) => (
       <Form.Item
         label={label}

@@ -8,6 +8,12 @@ import {
   personsSelector,
   toponymsSelector,
 } from 'selectors';
+import {
+  composeValidators,
+  dateLessThanOrEqual,
+  dateMoreThanOrEqual,
+  required,
+} from './validators';
 
 const typeNameFactory = it => it.type;
 
@@ -42,13 +48,28 @@ const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
                 label="Название"
                 rows={4}
                 placeholder="Название"
+                validate={required}
               />
             </Row>
             <Row>
-              <DateBox name="startDate" label="Дата начала" />
+              <DateBox
+                name="startDate"
+                label="Дата начала"
+                validate={composeValidators(
+                  required,
+                  dateLessThanOrEqual('endDate', 'Дата окончания'),
+                )}
+              />
             </Row>
             <Row>
-              <DateBox name="endDate" label="Дата окончания" />
+              <DateBox
+                name="endDate"
+                label="Дата окончания"
+                validate={composeValidators(
+                  required,
+                  dateMoreThanOrEqual('startDate', 'Дата начала'),
+                )}
+              />
             </Row>
             <Row>
               <SelectBox
@@ -56,6 +77,7 @@ const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
                 label="Тип"
                 options={eventTypes}
                 optionNameFactory={typeNameFactory}
+                validate={required}
               />
             </Row>
             <Row>
