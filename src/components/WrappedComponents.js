@@ -1,12 +1,20 @@
 import React from 'react';
 import { identity } from 'lodash-es';
 import { Field } from 'react-final-form';
-import { DatePicker, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
+import DateBox from './DateBox';
 import SelectBox from './SelectBox';
 import LazySelectSearch from './LazySelectSearch';
 
-const wrapIntoField = Component => ({ name, label, ...otherProps }) => (
-  <Field name={name} format={identity} parse={identity} allowNull>
+const wrapIntoField = Component => ({
+  name,
+  label,
+  allowNull = true,
+  format = identity,
+  parse = identity,
+  ...otherProps
+}) => (
+  <Field name={name} format={format} parse={parse} allowNull={allowNull}>
     {({ input: { value, onChange }, meta: { invalid, touched, error } }) => (
       <Form.Item
         label={label}
@@ -23,7 +31,7 @@ const WrappedInput = wrapIntoField(Input);
 
 const WrappedTextArea = wrapIntoField(Input.TextArea);
 
-const WrappedDateBox = wrapIntoField(DatePicker);
+const WrappedDateBox = wrapIntoField(DateBox);
 
 const WrappedSelectBox = wrapIntoField(SelectBox);
 

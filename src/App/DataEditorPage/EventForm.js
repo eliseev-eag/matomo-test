@@ -9,8 +9,6 @@ import {
   toponymsSelector,
 } from 'selectors';
 
-const dateFormat = 'DD.MM.YYYY';
-
 const typeNameFactory = it => it.type;
 
 const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
@@ -45,18 +43,10 @@ const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
               />
             </Row>
             <Row>
-              <DateBox
-                name="startDate"
-                label="Дата начала"
-                format={dateFormat}
-              />
+              <DateBox name="startDate" label="Дата начала" />
             </Row>
             <Row>
-              <DateBox
-                name="endDate"
-                label="Дата окончания"
-                format={dateFormat}
-              />
+              <DateBox name="endDate" label="Дата окончания" />
             </Row>
             <Row>
               <SelectBox
