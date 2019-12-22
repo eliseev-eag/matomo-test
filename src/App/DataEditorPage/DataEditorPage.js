@@ -1,36 +1,29 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { generatePath, Route, useHistory } from 'react-router-dom';
 import { Layout, PageHeader } from 'antd';
-import moment from 'moment';
+import { uniqueId } from 'lodash-es';
 import { addEvent, deleteEvent, editEvent } from 'ducks';
+import { editorDataPage } from 'App/routes';
 import DownloadButton from './DownloadButton';
 import EditorTable from './EditorTable';
 import EventForm from './EventForm';
+import { addRoute, editRoute } from './routes';
 
 const DataEditorPage = () => {
   const dispatch = useDispatch();
-  const [isAddFormVisible, setAddFormVisible] = useState(false);
-  const [event, setEvent] = useState(null);
+  const history = useHistory();
+
   const onSelect = useCallback(
-    value =>
-      setEvent({
-        ...value,
-        startDate: moment(value.startDate),
-        endDate: moment(value.endDate),
-        type: value.type.id,
-        toponyms: value.toponyms.map(toponym => toponym.id),
-        persons: value.persons.map(person => person.id),
-      }),
-    [],
+    value => {
+      history.push(generatePath(editRoute, { id: value.id }));
+    },
+    [history],
   );
 
   const closeForm = useCallback(() => {
-    if (isAddFormVisible) {
-      setAddFormVisible(false);
-    } else {
-      setEvent(null);
-    }
-  }, [isAddFormVisible]);
+    history.push(editorDataPage);
+  }, [history]);
 
   const changeEvent = useCallback(
     value => {
@@ -58,6 +51,7 @@ const DataEditorPage = () => {
       dispatch(
         addEvent({
           ...value,
+          id: uniqueId(),
           endDate: value.endDate.toDate(),
           startDate: value.startDate.toDate(),
         }),
@@ -68,8 +62,8 @@ const DataEditorPage = () => {
   );
 
   const showAddForm = useCallback(() => {
-    setAddFormVisible(true);
-  }, []);
+    history.push(addRoute);
+  }, [history]);
 
   return (
     <Layout>
@@ -84,14 +78,25 @@ const DataEditorPage = () => {
           onSelect={onSelect}
           deleteRow={onDelete}
         />
-        <EventForm
-          event={event}
-          visible={event !== null || isAddFormVisible}
-          onClose={closeForm}
-          onSubmit={isAddFormVisible ? createEvent : changeEvent}
-          title={
-            isAddFormVisible ? 'Добавление события' : 'Редактирование события'
-          }
+        <Route
+          path={addRoute}
+          render={() => (
+            <EventForm
+              onClose={closeForm}
+              onSubmit={createEvent}
+              title="Добавление события"
+            />
+          )}
+        />
+        <Route
+          path={editRoute}
+          render={() => (
+            <EventForm
+              onClose={closeForm}
+              onSubmit={changeEvent}
+              title="Редактирование события"
+            />
+          )}
         />
       </Layout.Content>
     </Layout>

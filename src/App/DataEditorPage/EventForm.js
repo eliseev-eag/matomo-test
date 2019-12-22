@@ -1,9 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Form as FinalForm } from 'react-final-form';
-import { Button, Drawer, Form, Row } from 'antd';
+import { useParams } from 'react-router-dom';
+import { Button, Drawer, Form, Row, Spin } from 'antd';
+import moment from 'moment';
 import { DateBox, LazySelectSearch, SelectBox, TextArea } from 'components';
 import {
+  eventsSelector,
   eventTypesSelector,
   personsSelector,
   toponymsSelector,
@@ -19,25 +22,62 @@ const typeNameFactory = it => it.type;
 
 const patronNameFactory = it => `${it.surname} ${it.name} ${it.patron}`;
 
-const EventForm = ({ event, onSubmit, visible, onClose, title }) => {
+const convertEventToFormFormat = event => ({
+  ...event,
+  startDate: moment(event.startDate),
+  endDate: moment(event.endDate),
+});
+
+const INITIAL_EVENT_VALUE = {
+  name: null,
+  startDate: null,
+  endDate: null,
+  type: null,
+  toponyms: [],
+  persons: [],
+};
+
+const EventForm = ({ onSubmit, onClose, title }) => {
   const eventTypes = useSelector(eventTypesSelector);
   const toponyms = useSelector(toponymsSelector);
   const persons = useSelector(personsSelector);
+  const events = useSelector(eventsSelector);
+  const { id: eventId } = useParams();
+
+  if (events.length < 1) {
+    return (
+      <div
+        style={{
+          minHeight: 200,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  const event = events.find(it => it.id === Number(eventId));
+  const initialValues = event
+    ? convertEventToFormFormat(event)
+    : INITIAL_EVENT_VALUE;
 
   return (
     <Drawer
       title={title}
-      visible={visible}
       onClose={onClose}
       placement="right"
       width={450}
+      visible
       closable
       destroyOnClose
     >
       <FinalForm
-        initialValues={event}
+        initialValues={initialValues}
         onSubmit={values => {
-          onSubmit({ id: event ? event.id : null, ...values });
+          onSubmit(values);
         }}
       >
         {({ handleSubmit }) => (
