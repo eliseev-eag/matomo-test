@@ -10,7 +10,7 @@ export const dateLessThanOrEqual = (fieldName, fieldLabel) => (
   value,
   allValues,
 ) =>
-  value.isAfter(allValues[fieldName])
+  value.isAfter(allValues[fieldName], 'day')
     ? `Значение поля должно быть меньше чем ${fieldLabel}`
     : undefined;
 
@@ -18,7 +18,7 @@ export const dateMoreThanOrEqual = (fieldName, fieldLabel) => (
   value,
   allValues,
 ) =>
-  value.isBefore(allValues[fieldName])
+  value.isBefore(allValues[fieldName], 'day')
     ? `Значение поля должно быть больше чем ${fieldLabel}`
     : undefined;
 
