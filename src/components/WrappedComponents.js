@@ -1,5 +1,5 @@
-import React from 'react';
-import { identity } from 'lodash-es';
+import React, { useCallback, useState } from 'react';
+import { debounce, identity } from 'lodash-es';
 import { Field } from 'react-final-form';
 import { Form, Input } from 'antd';
 import DateBox from './DateBox';
@@ -34,9 +34,35 @@ const wrapIntoField = Component => ({
   </Field>
 );
 
-const WrappedInput = wrapIntoField(Input);
+const wrapIntoDebouncedInput = Component =>
+  function DebouncedInput({
+    debounceTimeout = 300,
+    onChange: onChangeFormProps,
+    value,
+    ...otherProps
+  }) {
+    const [viewValue, setViewValue] = useState(value);
+    const onChangeDebounced = useCallback(
+      debounce(updatedValue => {
+        onChangeFormProps(updatedValue);
+      }, debounceTimeout),
+      [],
+    );
 
-const WrappedTextArea = wrapIntoField(Input.TextArea);
+    const onChange = useCallback(
+      ({ target: { value: newValue } }) => {
+        setViewValue(newValue);
+        onChangeDebounced(newValue);
+      },
+      [onChangeDebounced],
+    );
+
+    return <Component value={viewValue} onChange={onChange} {...otherProps} />;
+  };
+
+const WrappedInput = wrapIntoField(wrapIntoDebouncedInput(Input));
+
+const WrappedTextArea = wrapIntoField(wrapIntoDebouncedInput(Input.TextArea));
 
 const WrappedDateBox = wrapIntoField(DateBox);
 
