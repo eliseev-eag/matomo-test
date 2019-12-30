@@ -19,6 +19,22 @@ const TIMELINE_OPTIONS = {
   zoomMin: MILLISECONDS_IN_DAY * 5,
 };
 
+const renderTitle = item => `
+  <div>
+    <h3 className="event-name">${item.name}</h3>
+    <hr />
+    <div className="dates">
+      <div>
+        ${item.startDate.toLocaleDateString()} - ${item.endDate.toLocaleDateString()}
+      </div>
+      <div>
+        <b>Продолжительность: </b>
+        ${Math.floor((item.endDate - item.startDate) / MILLISECONDS_IN_DAY)} дн.
+      </div>
+    </div>
+  </div>
+`;
+
 const EventsTimeline = () => {
   const events = useSelector(eventsSelector);
   const eventTypes = useSelector(eventTypesSelector);
@@ -35,6 +51,7 @@ const EventsTimeline = () => {
           event.endDate - event.startDate <= MILLISECONDS_IN_DAY
             ? 'point'
             : 'range',
+        title: renderTitle(event),
       })),
     [events],
   );
