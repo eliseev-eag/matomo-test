@@ -5,14 +5,14 @@ import { errorSelector, isFetchingSelector } from 'selectors';
 import EventsTimeline from './EventsTimeline';
 
 const DataViewPage = () => {
-  const isFethcing = useSelector(isFetchingSelector);
+  const isFetching = useSelector(isFetchingSelector);
   const error = useSelector(errorSelector);
 
   return (
     <Layout>
       <PageHeader ghost={false} title="Просмотр данных" />
       <Layout.Content>
-        {isFethcing && (
+        {isFetching && (
           <div
             style={{
               minHeight: 200,
@@ -32,7 +32,7 @@ const DataViewPage = () => {
             showIcon
           />
         )}
-        {!isFethcing && !error && <EventsTimeline />}
+        {!isFetching && !error && <EventsTimeline />}
       </Layout.Content>
     </Layout>
   );
