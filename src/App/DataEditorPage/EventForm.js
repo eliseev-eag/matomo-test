@@ -46,16 +46,26 @@ const EventForm = ({ onSubmit, onClose, title }) => {
 
   if (events.length < 1) {
     return (
-      <div
-        style={{
-          minHeight: 200,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+      <Drawer
+        title={title}
+        onClose={onClose}
+        placement="right"
+        width={450}
+        visible
+        closable
+        destroyOnClose
       >
-        <Spin size="large" />
-      </div>
+        <div
+          style={{
+            minHeight: 200,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Spin size="large" />
+        </div>
+      </Drawer>
     );
   }
 
