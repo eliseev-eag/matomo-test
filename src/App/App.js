@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { Icon, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
+import { EditOutlined, PieChartOutlined } from '@ant-design/icons';
 import { loadEvents } from '../ducks';
 import DataViewPage from './DataViewPage';
 import DataEditorPage from './DataEditorPage';
@@ -43,13 +44,13 @@ const App = () => {
         <Menu theme="dark" mode="inline" selectedKeys={selectedMenuKeys}>
           <Menu.Item key={viewDataPage}>
             <Link to={viewDataPage}>
-              <Icon type="pie-chart" />
+              <PieChartOutlined />
               <span>Просмотр данных</span>
             </Link>
           </Menu.Item>
           <Menu.Item key={editorDataPage}>
             <Link to={editorDataPage}>
-              <Icon type="edit" />
+              <EditOutlined />
               <span>Редактирование данных</span>
             </Link>
           </Menu.Item>

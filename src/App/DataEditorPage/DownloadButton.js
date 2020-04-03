@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Button, Icon } from 'antd';
+import { Button } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
 import {
   eventsSelector,
   eventTypesSelector,
@@ -28,7 +29,7 @@ const DownloadButton = ({ filename = 'events.json' }) => {
         new Blob([content], { type: 'application/json' }),
       )}
     >
-      <Icon type="download" />
+      <DownloadOutlined />
       Export to json
     </Button>
   );
