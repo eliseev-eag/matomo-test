@@ -15,7 +15,7 @@ const DataEditorPage = () => {
   const history = useHistory();
 
   const onSelect = useCallback(
-    value => {
+    (value) => {
       history.push(generatePath(editRoute, { id: value.id }));
     },
     [history],
@@ -26,7 +26,7 @@ const DataEditorPage = () => {
   }, [history]);
 
   const changeEvent = useCallback(
-    value => {
+    (value) => {
       dispatch(
         editEvent({
           ...value,
@@ -40,14 +40,14 @@ const DataEditorPage = () => {
   );
 
   const onDelete = useCallback(
-    value => {
+    (value) => {
       dispatch(deleteEvent(value));
     },
     [dispatch],
   );
 
   const createEvent = useCallback(
-    value => {
+    (value) => {
       dispatch(
         addEvent({
           ...value,

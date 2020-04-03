@@ -19,7 +19,7 @@ const TIMELINE_OPTIONS = {
   zoomMin: MILLISECONDS_IN_DAY * 5,
 };
 
-const renderTitle = item => `
+const renderTitle = (item) => `
   <div>
     <h3 className="event-name">${item.name}</h3>
     <hr />
@@ -41,7 +41,7 @@ const EventsTimeline = () => {
 
   const items = useMemo(
     () =>
-      events.slice(0, 10).map(event => ({
+      events.slice(0, 10).map((event) => ({
         start: event.startDate,
         end: event.endDate,
         content: event.name,
@@ -58,7 +58,7 @@ const EventsTimeline = () => {
 
   const groups = useMemo(
     () =>
-      eventTypes.map(eventType => ({
+      eventTypes.map((eventType) => ({
         id: eventType.id,
         content: eventType.type,
       })),

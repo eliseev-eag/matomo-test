@@ -6,7 +6,7 @@ import DateBox from './DateBox';
 import SelectBox from './SelectBox';
 import LazySelectSearch from './LazySelectSearch';
 
-const wrapIntoField = Component => ({
+const wrapIntoField = (Component) => ({
   name,
   label,
   validate,
@@ -34,7 +34,7 @@ const wrapIntoField = Component => ({
   </Field>
 );
 
-const wrapIntoDebouncedInput = Component =>
+const wrapIntoDebouncedInput = (Component) =>
   function DebouncedInput({
     debounceTimeout = 300,
     onChange: onChangeFormProps,
@@ -43,7 +43,7 @@ const wrapIntoDebouncedInput = Component =>
   }) {
     const [viewValue, setViewValue] = useState(value);
     const onChangeDebounced = useCallback(
-      debounce(updatedValue => {
+      debounce((updatedValue) => {
         onChangeFormProps(updatedValue);
       }, debounceTimeout),
       [],

@@ -18,7 +18,7 @@ const App = () => {
   const { pathname } = useLocation();
 
   const selectedMenuKeys = useMemo(
-    () => [ROUTES.find(route => route === pathname)],
+    () => [ROUTES.find((route) => route === pathname)],
     [pathname],
   );
 

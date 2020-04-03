@@ -17,9 +17,9 @@ const LazySelectSearch = ({
 }) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const onSearch = useCallback(
-    debounce(inputValue => {
+    debounce((inputValue) => {
       setFilteredOptions(
-        allOptions.filter(option =>
+        allOptions.filter((option) =>
           optionNameFactory(option)
             .toLowerCase()
             .includes(inputValue.toLocaleLowerCase()),
@@ -34,7 +34,7 @@ const LazySelectSearch = ({
   }, []);
 
   const onChangeHandler = useCallback(
-    newValue => {
+    (newValue) => {
       setFilteredOptions([]);
       onChange(newValue);
     },
@@ -42,7 +42,7 @@ const LazySelectSearch = ({
   );
 
   const mappedValues = useMemo(
-    () => value.map(v => allOptions.find(p => optionValueFactory(p) === v)),
+    () => value.map((v) => allOptions.find((p) => optionValueFactory(p) === v)),
     [allOptions, value, optionValueFactory],
   );
 
@@ -71,7 +71,7 @@ const LazySelectSearch = ({
       onBlur={onBlur}
       value={value}
     >
-      {options.map(option => (
+      {options.map((option) => (
         <Select.Option
           key={optionKeyFactory(option)}
           value={optionValueFactory(option)}

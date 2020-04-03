@@ -1,7 +1,7 @@
 import { isArray, isNil } from 'lodash-es';
 import {} from 'moment';
 
-export const required = value =>
+export const required = (value) =>
   isNil(value) || value === '' || (isArray(value) && value.length === 0)
     ? 'Поле обязательно'
     : undefined;

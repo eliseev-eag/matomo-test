@@ -12,7 +12,7 @@ const SelectBox = ({
   ...otherProps
 }) => (
   <Select {...otherProps}>
-    {options.map(option => (
+    {options.map((option) => (
       <Select.Option
         key={optionKeyFactory(option)}
         value={optionValueFactory(option)}

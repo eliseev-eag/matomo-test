@@ -9,19 +9,19 @@ import {
   toponymsSelector,
 } from 'selectors';
 
-const dateFormatter = date =>
+const dateFormatter = (date) =>
   date.toLocaleString('ru', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
   });
-const typeFormatter = type => type.type;
-const personsFormatter = persons =>
+const typeFormatter = (type) => type.type;
+const personsFormatter = (persons) =>
   persons
-    .map(person => `${person.surname} ${person.name} ${person.patron}`)
+    .map((person) => `${person.surname} ${person.name} ${person.patron}`)
     .join();
-const toponymsFormatter = toponyms =>
-  toponyms.map(toponym => toponym.name).join();
+const toponymsFormatter = (toponyms) =>
+  toponyms.map((toponym) => toponym.name).join();
 
 const startDateSorter = (a, b) => a.startDate - b.startDate;
 
@@ -37,44 +37,44 @@ const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
   const eventsWithNestedData = useMemo(
     () =>
       events
-        .map(event => ({
+        .map((event) => ({
           ...event,
-          type: eventTypes.find(type => type.id === event.type),
+          type: eventTypes.find((type) => type.id === event.type),
           persons: event.persons
-            ? event.persons.map(personId =>
-                persons.find(person => person.id === personId),
+            ? event.persons.map((personId) =>
+                persons.find((person) => person.id === personId),
               )
             : [],
           toponyms: event.toponyms
-            ? event.toponyms.map(toponymId =>
-                toponyms.find(toponym => toponym.id === toponymId),
+            ? event.toponyms.map((toponymId) =>
+                toponyms.find((toponym) => toponym.id === toponymId),
               )
             : [],
         }))
-        .filter(it => it.name.toLowerCase().includes(filter.toLowerCase())),
+        .filter((it) => it.name.toLowerCase().includes(filter.toLowerCase())),
     [events, eventTypes, persons, toponyms, filter],
   );
 
   const onRow = useCallback(
-    record => ({
+    (record) => ({
       onClick: onSelect ? () => onSelect(record) : undefined,
     }),
     [onSelect],
   );
 
   const onSearch = useCallback(
-    debounce(value => setFilter(value)),
+    debounce((value) => setFilter(value)),
     [],
   );
 
   const renderDeleteButton = (_, record) => (
     <Popconfirm
       title="Вы уверены?"
-      onConfirm={event => {
+      onConfirm={(event) => {
         event.stopPropagation();
         deleteRow(record);
       }}
-      onCancel={event => {
+      onCancel={(event) => {
         event.stopPropagation();
       }}
       okText="Да"
@@ -82,7 +82,7 @@ const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
     >
       <Button
         type="link"
-        onClick={event => {
+        onClick={(event) => {
           event.stopPropagation();
         }}
       >
@@ -113,7 +113,7 @@ const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
       </div>
       <Table
         dataSource={eventsWithNestedData}
-        rowKey={event => event.id}
+        rowKey={(event) => event.id}
         onRow={onRow}
       >
         <Table.Column title="Название" dataIndex="name" width="35%" />
@@ -135,7 +135,7 @@ const EditorTable = ({ onAdd, onSelect, deleteRow }) => {
           title="Тип"
           dataIndex="type"
           width="10%"
-          filters={eventTypes.map(eventType => ({
+          filters={eventTypes.map((eventType) => ({
             value: eventType.id,
             text: eventType.type,
           }))}
