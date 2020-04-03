@@ -5,22 +5,22 @@
     "main.js.map": "/Viz-react/static/js/main.05882148.chunk.js.map",
     "runtime-main.js": "/Viz-react/static/js/runtime-main.7d6bfc0e.js",
     "runtime-main.js.map": "/Viz-react/static/js/runtime-main.7d6bfc0e.js.map",
-    "static/css/2.e7e11c9a.chunk.css": "/Viz-react/static/css/2.e7e11c9a.chunk.css",
-    "static/js/2.d7c0042a.chunk.js": "/Viz-react/static/js/2.d7c0042a.chunk.js",
-    "static/js/2.d7c0042a.chunk.js.map": "/Viz-react/static/js/2.d7c0042a.chunk.js.map",
+    "static/css/2.395f5350.chunk.css": "/Viz-react/static/css/2.395f5350.chunk.css",
+    "static/js/2.2bb5ba91.chunk.js": "/Viz-react/static/js/2.2bb5ba91.chunk.js",
+    "static/js/2.2bb5ba91.chunk.js.map": "/Viz-react/static/js/2.2bb5ba91.chunk.js.map",
     "static/js/3.655481e3.chunk.js": "/Viz-react/static/js/3.655481e3.chunk.js",
     "static/js/3.655481e3.chunk.js.map": "/Viz-react/static/js/3.655481e3.chunk.js.map",
     "index.html": "/Viz-react/index.html",
-    "precache-manifest.ba82d8521bf99bd65ffd379801446cc8.js": "/Viz-react/precache-manifest.ba82d8521bf99bd65ffd379801446cc8.js",
+    "precache-manifest.1d28afe4a7d8a4a7bfdf22b0f41017ea.js": "/Viz-react/precache-manifest.1d28afe4a7d8a4a7bfdf22b0f41017ea.js",
     "service-worker.js": "/Viz-react/service-worker.js",
-    "static/css/2.e7e11c9a.chunk.css.map": "/Viz-react/static/css/2.e7e11c9a.chunk.css.map",
+    "static/css/2.395f5350.chunk.css.map": "/Viz-react/static/css/2.395f5350.chunk.css.map",
     "static/css/main.2d9e4167.chunk.css.map": "/Viz-react/static/css/main.2d9e4167.chunk.css.map",
-    "static/js/2.d7c0042a.chunk.js.LICENSE.txt": "/Viz-react/static/js/2.d7c0042a.chunk.js.LICENSE.txt"
+    "static/js/2.2bb5ba91.chunk.js.LICENSE.txt": "/Viz-react/static/js/2.2bb5ba91.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7d6bfc0e.js",
-    "static/css/2.e7e11c9a.chunk.css",
-    "static/js/2.d7c0042a.chunk.js",
+    "static/css/2.395f5350.chunk.css",
+    "static/js/2.2bb5ba91.chunk.js",
     "static/css/main.2d9e4167.chunk.css",
     "static/js/main.05882148.chunk.js"
   ]
