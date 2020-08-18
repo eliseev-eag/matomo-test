@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Form as FinalForm } from 'react-final-form';
 import { useParams } from 'react-router-dom';
-import { Button, Drawer, Form, Row, Spin } from 'antd';
+import { Button, Drawer, Form, Spin } from 'antd';
 import moment from 'moment';
 import { DateBox, LazySelectSearch, SelectBox, TextArea } from 'components';
 import {
@@ -92,7 +92,7 @@ const EventForm = ({ onSubmit, onClose, title }) => {
       >
         {({ handleSubmit }) => (
           <Form layout="vertical" onSubmit={handleSubmit}>
-            <Row>
+            <Form.Item>
               <TextArea
                 name="name"
                 label="Название"
@@ -100,8 +100,8 @@ const EventForm = ({ onSubmit, onClose, title }) => {
                 placeholder="Название"
                 validate={required}
               />
-            </Row>
-            <Row>
+            </Form.Item>
+            <Form.Item>
               <DateBox
                 name="startDate"
                 label="Дата начала"
@@ -110,8 +110,8 @@ const EventForm = ({ onSubmit, onClose, title }) => {
                   dateLessThanOrEqual('endDate', 'Дата окончания'),
                 )}
               />
-            </Row>
-            <Row>
+            </Form.Item>
+            <Form.Item>
               <DateBox
                 name="endDate"
                 label="Дата окончания"
@@ -120,8 +120,8 @@ const EventForm = ({ onSubmit, onClose, title }) => {
                   dateMoreThanOrEqual('startDate', 'Дата начала'),
                 )}
               />
-            </Row>
-            <Row>
+            </Form.Item>
+            <Form.Item>
               <SelectBox
                 name="type"
                 label="Тип"
@@ -129,16 +129,16 @@ const EventForm = ({ onSubmit, onClose, title }) => {
                 optionNameFactory={typeNameFactory}
                 validate={required}
               />
-            </Row>
-            <Row>
+            </Form.Item>
+            <Form.Item>
               <LazySelectSearch
                 name="toponyms"
                 label="Топонимы"
                 allOptions={toponyms}
                 placeholder="Выберите топонимы"
               />
-            </Row>
-            <Row>
+            </Form.Item>
+            <Form.Item>
               <LazySelectSearch
                 name="persons"
                 label="Действующие лица"
@@ -146,7 +146,7 @@ const EventForm = ({ onSubmit, onClose, title }) => {
                 optionNameFactory={patronNameFactory}
                 placeholder="Выберите действующих лиц"
               />
-            </Row>
+            </Form.Item>
             <div
               style={{
                 position: 'absolute',
