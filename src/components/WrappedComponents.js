@@ -22,13 +22,22 @@ const wrapIntoField = (Component) => ({
     allowNull={allowNull}
     validate={validate}
   >
-    {({ input: { value, onChange }, meta: { invalid, touched, error } }) => (
+    {({
+      input: { value, onChange, onBlur, onFocus },
+      meta: { invalid, touched, error },
+    }) => (
       <Form.Item
         label={label}
         validateStatus={touched && invalid ? 'error' : 'success'}
-        help={error}
+        help={touched && invalid ? error : undefined}
       >
-        <Component value={value} onChange={onChange} {...otherProps} />
+        <Component
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          {...otherProps}
+        />
       </Form.Item>
     )}
   </Field>
