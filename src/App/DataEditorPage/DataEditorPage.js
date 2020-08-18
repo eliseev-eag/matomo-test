@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { generatePath, Route, useHistory } from 'react-router-dom';
-import { Layout, PageHeader } from 'antd';
+import { Layout, message, PageHeader } from 'antd';
 import { uniqueId } from 'lodash-es';
 import { addEvent, deleteEvent, editEvent } from 'ducks';
 import { editorDataPage } from 'App/routes';
@@ -35,6 +35,7 @@ const DataEditorPage = () => {
         }),
       );
       closeForm();
+      message.success('Событие успешно изменено');
     },
     [dispatch, closeForm],
   );
@@ -57,6 +58,7 @@ const DataEditorPage = () => {
         }),
       );
       closeForm();
+      message.success('Событие успешно добавлено');
     },
     [closeForm, dispatch],
   );
