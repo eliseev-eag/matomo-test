@@ -70,6 +70,7 @@ const EventForm = ({ onSubmit, onClose, title }) => {
   }
 
   const event = events.find((it) => it.id === Number(eventId));
+
   const initialValues = event
     ? convertEventToFormFormat(event)
     : INITIAL_EVENT_VALUE;
