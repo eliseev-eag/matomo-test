@@ -20,28 +20,28 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@ant-design/icons": "^4.0.5",
-    "antd": "^4.1.0",
-    "final-form": "^4.19.1",
+    "@ant-design/icons": "^4.2.2",
+    "antd": "^4.5.4",
+    "final-form": "^4.20.1",
     "lodash-es": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-final-form": "^6.4.0",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
+    "react-final-form": "^6.5.1",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
     "react-visjs-timeline": "^1.6.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.3.0",
-    "vis-timeline": "^7.3.4"
+    "vis-timeline": "^7.3.7"
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^2.0.2"
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
   }
 }
