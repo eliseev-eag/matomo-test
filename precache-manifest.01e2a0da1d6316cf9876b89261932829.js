@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9c8eeb38771092bb70e7488e4b3490a2",
+    "revision": "6e721782fcd91409751b91ce3235c596",
     "url": "/matomo-test/index.html"
   },
   {
