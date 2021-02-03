@@ -1,10 +1,10 @@
 {
   "name": "viz-react",
   "version": "0.1.0",
-  "homepage": "https://eliseev-eag.github.io/Viz-react",
+  "homepage": "https://eliseev-eag.github.io/matomo-test",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eliseev-eag/Viz-react.git"
+    "url": "https://github.com/eliseev-eag/matomo-test.git"
   },
   "private": true,
   "scripts": {
