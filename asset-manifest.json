@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/Viz-react/static/css/main.9e449665.chunk.css",
-    "main.js": "/Viz-react/static/js/main.df9a2cf0.chunk.js",
-    "main.js.map": "/Viz-react/static/js/main.df9a2cf0.chunk.js.map",
-    "runtime-main.js": "/Viz-react/static/js/runtime-main.f6610ccd.js",
-    "runtime-main.js.map": "/Viz-react/static/js/runtime-main.f6610ccd.js.map",
-    "static/css/2.b74ff544.chunk.css": "/Viz-react/static/css/2.b74ff544.chunk.css",
-    "static/js/2.459043b3.chunk.js": "/Viz-react/static/js/2.459043b3.chunk.js",
-    "static/js/2.459043b3.chunk.js.map": "/Viz-react/static/js/2.459043b3.chunk.js.map",
-    "static/js/3.53afa952.chunk.js": "/Viz-react/static/js/3.53afa952.chunk.js",
-    "static/js/3.53afa952.chunk.js.map": "/Viz-react/static/js/3.53afa952.chunk.js.map",
-    "index.html": "/Viz-react/index.html",
-    "precache-manifest.28494e40da49ed5b34cf7fde73b3ec27.js": "/Viz-react/precache-manifest.28494e40da49ed5b34cf7fde73b3ec27.js",
-    "service-worker.js": "/Viz-react/service-worker.js",
-    "static/css/2.b74ff544.chunk.css.map": "/Viz-react/static/css/2.b74ff544.chunk.css.map",
-    "static/css/main.9e449665.chunk.css.map": "/Viz-react/static/css/main.9e449665.chunk.css.map",
-    "static/js/2.459043b3.chunk.js.LICENSE.txt": "/Viz-react/static/js/2.459043b3.chunk.js.LICENSE.txt"
+    "main.css": "/matomo-test/static/css/main.2d9e4167.chunk.css",
+    "main.js": "/matomo-test/static/js/main.60544bd0.chunk.js",
+    "main.js.map": "/matomo-test/static/js/main.60544bd0.chunk.js.map",
+    "runtime-main.js": "/matomo-test/static/js/runtime-main.ad4c5b10.js",
+    "runtime-main.js.map": "/matomo-test/static/js/runtime-main.ad4c5b10.js.map",
+    "static/css/2.b74ff544.chunk.css": "/matomo-test/static/css/2.b74ff544.chunk.css",
+    "static/js/2.450cd818.chunk.js": "/matomo-test/static/js/2.450cd818.chunk.js",
+    "static/js/2.450cd818.chunk.js.map": "/matomo-test/static/js/2.450cd818.chunk.js.map",
+    "static/js/3.53afa952.chunk.js": "/matomo-test/static/js/3.53afa952.chunk.js",
+    "static/js/3.53afa952.chunk.js.map": "/matomo-test/static/js/3.53afa952.chunk.js.map",
+    "index.html": "/matomo-test/index.html",
+    "precache-manifest.e62146912ffbb1c9dddd60f0b4bea03f.js": "/matomo-test/precache-manifest.e62146912ffbb1c9dddd60f0b4bea03f.js",
+    "service-worker.js": "/matomo-test/service-worker.js",
+    "static/css/2.b74ff544.chunk.css.map": "/matomo-test/static/css/2.b74ff544.chunk.css.map",
+    "static/css/main.2d9e4167.chunk.css.map": "/matomo-test/static/css/main.2d9e4167.chunk.css.map",
+    "static/js/2.450cd818.chunk.js.LICENSE.txt": "/matomo-test/static/js/2.450cd818.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f6610ccd.js",
+    "static/js/runtime-main.ad4c5b10.js",
     "static/css/2.b74ff544.chunk.css",
-    "static/js/2.459043b3.chunk.js",
-    "static/css/main.9e449665.chunk.css",
-    "static/js/main.df9a2cf0.chunk.js"
+    "static/js/2.450cd818.chunk.js",
+    "static/css/main.2d9e4167.chunk.css",
+    "static/js/main.60544bd0.chunk.js"
   ]
 }
