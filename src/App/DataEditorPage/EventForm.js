@@ -92,7 +92,7 @@ const EventForm = ({ onSubmit, onClose, title }) => {
         }}
       >
         {({ handleSubmit }) => (
-          <Form layout="vertical" onFinish={handleSubmit}>
+          <Form layout="vertical" id="edit_event_form" onFinish={handleSubmit}>
             <Form.Item>
               <TextArea
                 name="name"
