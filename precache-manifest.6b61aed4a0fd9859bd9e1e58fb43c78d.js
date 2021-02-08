@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8691b031315e7810f382fc901deaf251",
+    "revision": "ef7128e1bc2e5995c3ff3604e0f74d3c",
     "url": "/matomo-test/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/matomo-test/static/css/2.b74ff544.chunk.css"
   },
   {
-    "revision": "6dc06093fb2e44dbab8f",
+    "revision": "255119db0e6a8dc0291c",
     "url": "/matomo-test/static/css/main.2d9e4167.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/matomo-test/static/js/3.53afa952.chunk.js"
   },
   {
-    "revision": "6dc06093fb2e44dbab8f",
-    "url": "/matomo-test/static/js/main.01f1e2e5.chunk.js"
+    "revision": "255119db0e6a8dc0291c",
+    "url": "/matomo-test/static/js/main.3af3ab15.chunk.js"
   },
   {
     "revision": "8de141c03e77bece2c0f",

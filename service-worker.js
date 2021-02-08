@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/matomo-test/precache-manifest.3147b673496fae4e31a2741660ae3933.js"
+  "/matomo-test/precache-manifest.6b61aed4a0fd9859bd9e1e58fb43c78d.js"
 );
 
 self.addEventListener('message', (event) => {
