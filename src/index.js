@@ -14,6 +14,8 @@ const renderApp = () => (
   </Router>
 );
 
+const rootElement = document.getElementById('root');
+
 // eslint-disable-next-line func-names
 window.addEventListener('hashchange', function () {
   /* eslint-disable no-underscore-dangle */
@@ -21,10 +23,10 @@ window.addEventListener('hashchange', function () {
   window._paq.push(['setDocumentTitle', document.title]);
   window._paq.push(['trackPageView']);
 
-  window._paq.push(['FormAnalytics::scanForForms', document]);
+  window._paq.push(['FormAnalytics::scanForForms', rootElement]);
   window._paq.push(['enableLinkTracking']);
-  window._paq.push(['trackContentImpressionsWithinNode', document]);
+  window._paq.push(['trackContentImpressionsWithinNode', rootElement]);
   /* eslint-enable no-underscore-dangle */
 });
 
-ReactDOM.render(renderApp(), document.getElementById('root'));
+ReactDOM.render(renderApp(), rootElement);
