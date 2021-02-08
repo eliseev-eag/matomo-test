@@ -17,7 +17,7 @@ const renderApp = () => (
 // eslint-disable-next-line func-names
 window.addEventListener('hashchange', function () {
   /* eslint-disable no-underscore-dangle */
-  window._paq.push(['setCustomUrl', `/${window.location.hash.substr(1)}`]);
+  window._paq.push(['setCustomUrl', `/${window.location.hash}`]);
   window._paq.push(['setDocumentTitle', document.title]);
   window._paq.push(['trackPageView']);
 
